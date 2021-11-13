@@ -6,13 +6,15 @@ import java.util.Properties;
 
 public class JdbcConnector {
 	
+	// JDBC connection used by the airline reservation system
 	public static Connection createNewConnection() {
 		try {
 		// Get database information from properties file
 		Properties prop = new Properties();
 		String localDir = System.getProperty("user.dir");
-		System.out.println(localDir);
-		FileReader fReader = new FileReader(localDir + "/src/airlinereservationsystem/db.properties/");
+//		System.out.println(localDir);
+		FileReader fReader = new FileReader(localDir + "/src/airlinereservationsystem/db.properties/"); // If using in eclipse
+//		FileReader fReader = new FileReader(localDir + "/airlinereservationsystem/db.properties/");	// For use in external console 
 		prop.load(fReader);
 		
 		String dbUrl = prop.getProperty("db.conn.url");
