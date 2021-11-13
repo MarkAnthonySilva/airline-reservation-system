@@ -39,7 +39,12 @@ public class PassengerController {
 			pd.insertPassenger(passenger);
 			this.displayPassengerMenu();
 			break;
-			
+		case 2: 
+			// Select Passenger by name
+			break;
+		case 3: 
+			// Select Passenger by pid
+			break; 
 		default:
 			System.out.println("Invalid Navigation Integer\n");
 			this.displayPassengerMenu();
