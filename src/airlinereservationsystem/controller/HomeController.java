@@ -1,0 +1,34 @@
+package airlinereservationsystem.controller;
+
+import airlinereservationsystem.helper;
+import airlinereservationsystem.view.HomeMenu;
+
+public class HomeController {
+	private int navInt;	// Refers to the navigation int displayed in the console
+	
+	/**
+	 * Starts the airline reservation system by invoking the homeMenu view in the console
+	 */
+	public void homeMenu() {
+		HomeMenu hm = new HomeMenu();
+		String navIntAsString = hm.displayHome();
+		
+		if(helper.isStringNumeric(navIntAsString) == true){
+			this.navInt = Integer.parseInt(navIntAsString);
+		} else {
+			System.out.println("Input Must be an integer\n");
+			this.homeMenu();
+		}
+		
+		switch(this.navInt) {
+		case 1: 
+			// Set up Passenger View and Controller here
+			System.out.println("Passenger View and Controller Here");
+			break;
+		default:
+			System.out.println("Invalid Navigation Integer\n");
+			this.homeMenu();
+
+		}
+	}
+}
