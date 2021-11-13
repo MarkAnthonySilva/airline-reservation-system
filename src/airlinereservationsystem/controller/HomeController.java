@@ -9,7 +9,7 @@ public class HomeController {
 	/**
 	 * Starts the airline reservation system by invoking the homeMenu view in the console
 	 */
-	public void homeMenu() {
+	public void displayHomeMenu() {
 		HomeMenu hm = new HomeMenu();
 		String navIntAsString = hm.displayHome();
 		
@@ -17,17 +17,17 @@ public class HomeController {
 			this.navInt = Integer.parseInt(navIntAsString);
 		} else {
 			System.out.println("Input Must be an integer\n");
-			this.homeMenu();
+			this.displayHomeMenu();
 		}
 		
 		switch(this.navInt) {
 		case 1: 
-			// Set up Passenger View and Controller here
-			System.out.println("Passenger View and Controller Here");
+			PassengerController pc = new PassengerController(this);
+			pc.displayPassengerMenu();
 			break;
 		default:
 			System.out.println("Invalid Navigation Integer\n");
-			this.homeMenu();
+			this.displayHomeMenu();
 
 		}
 	}
