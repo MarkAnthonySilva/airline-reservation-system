@@ -1,5 +1,6 @@
 package airlinereservationsystem.controller;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import airlinereservationsystem.helper;
@@ -15,8 +16,9 @@ public class HomeController {
 	
 	/**
 	 * Starts the airline reservation system by invoking the homeMenu view in the console
+	 * @throws SQLException 
 	 */
-	public void displayHomeMenu() {
+	public void displayHomeMenu() throws SQLException {
 		HomeMenu hm = new HomeMenu(this.sc);
 		String navIntAsString = hm.displayHome();
 		
