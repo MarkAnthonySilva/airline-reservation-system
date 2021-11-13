@@ -1,21 +1,19 @@
 package airlinereservationsystem.view;
 
-import java.io.Console;
+import java.util.Scanner;
 
 public class HomeMenu {
+	private Scanner sc;
 	
+	public HomeMenu(Scanner sc) {
+		this.sc = sc;
+	}
 	public String displayHome() {
-		Console console = System.console();
-		if(console !=null){
-			System.out.println("\nHOME MENU\nNavigate to where");
-			System.out.println("1: Passenger");
-			String navIntAsString = console.readLine("\nEnter integer: ");
-			return navIntAsString;
-		}
-		else {
-			System.out.println("Console is null: " + console);
-		}
-		
-		return null;
+		System.out.println("\nHOME MENU\nNavigate to where");
+		System.out.println("0: Close Airline System");
+		System.out.println("1: Passenger");
+		System.out.print("\nEnter integer: ");
+		String navIntAsString = sc.next();
+		return navIntAsString;
 	}
 }
