@@ -1,16 +1,23 @@
 package airlinereservationsystem.controller;
 
+import java.util.Scanner;
+
 import airlinereservationsystem.helper;
 import airlinereservationsystem.view.HomeMenu;
 
 public class HomeController {
 	private int navInt;	// Refers to the navigation int displayed in the console
+	private Scanner sc;
+	
+	public HomeController(Scanner sc){
+		this.sc = sc;
+	}
 	
 	/**
 	 * Starts the airline reservation system by invoking the homeMenu view in the console
 	 */
 	public void displayHomeMenu() {
-		HomeMenu hm = new HomeMenu();
+		HomeMenu hm = new HomeMenu(this.sc);
 		String navIntAsString = hm.displayHome();
 		
 		if(helper.isStringNumeric(navIntAsString) == true){
@@ -21,6 +28,10 @@ public class HomeController {
 		}
 		
 		switch(this.navInt) {
+		case 0:
+			System.out.println("Airline System is closed");
+			this.sc.close();
+			break;
 		case 1: 
 			PassengerController pc = new PassengerController(this);
 			pc.displayPassengerMenu();
@@ -30,5 +41,9 @@ public class HomeController {
 			this.displayHomeMenu();
 			break;
 		}
+	}
+	
+	public Scanner getSc() {
+		return this.sc;
 	}
 }
