@@ -9,7 +9,7 @@ public class HomeMenu {
 		if(console !=null){
 			System.out.println("\nHOME MENU\nNavigate to where");
 			System.out.println("1: Passenger");
-			String navIntAsString = console.readLine("Enter integer: ");
+			String navIntAsString = console.readLine("\nEnter integer: ");
 			return navIntAsString;
 		}
 		else {

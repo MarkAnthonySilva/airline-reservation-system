@@ -16,7 +16,7 @@ public class HomeController {
 		if(helper.isStringNumeric(navIntAsString) == true){
 			this.navInt = Integer.parseInt(navIntAsString);
 		} else {
-			System.out.println("Input Must be an integer\n");
+			System.out.println("Input Must be an integer");
 			this.displayHomeMenu();
 		}
 		
@@ -26,9 +26,9 @@ public class HomeController {
 			pc.displayPassengerMenu();
 			break;
 		default:
-			System.out.println("Invalid Navigation Integer\n");
+			System.out.println("Invalid Navigation Integer");
 			this.displayHomeMenu();
-
+			break;
 		}
 	}
 }
