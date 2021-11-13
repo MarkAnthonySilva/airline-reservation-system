@@ -1,4 +1,4 @@
-package model;
+package airlinereservationsystem.model;
 
 import java.util.Objects;
 
