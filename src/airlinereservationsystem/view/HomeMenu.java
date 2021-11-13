@@ -2,8 +2,6 @@ package airlinereservationsystem.view;
 
 import java.io.Console;
 
-import airlinereservationsystem.helper;
-
 public class HomeMenu {
 	
 	public String displayHome() {
