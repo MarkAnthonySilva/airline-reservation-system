@@ -15,7 +15,9 @@ public class PassengerDao {
 			ps.setString(2, passenger.getLastName());
 			ps.setInt(3, passenger.getAge());
 			ps.executeUpdate();
+			System.out.println("Passenger Succesfully Added");
 		} catch (Exception e) {
+			System.out.println("Passenger Could not be added Added");
 			e.printStackTrace();
 		}
 	}
