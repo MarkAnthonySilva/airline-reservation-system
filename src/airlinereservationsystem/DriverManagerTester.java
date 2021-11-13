@@ -1,7 +1,11 @@
 package airlinereservationsystem;
+import java.sql.Connection;
+
+import airlinereservationsystem.dao.PassengerDao;
+import airlinereservationsystem.model.Passenger;
+
 //import java.sql.DriverManager;
 //import java.io.FileReader;
-import java.sql.Connection;
 //import java.util.Properties;
 
 public class DriverManagerTester
@@ -10,6 +14,15 @@ public class DriverManagerTester
 	public static void main(String[] argv) {
 		final Connection connection = JdbcConnector.createNewConnection();
 		System.out.println(connection.toString());
+		
+		Passenger passenger = new Passenger();
+		passenger.setFirstName("Mark");
+		passenger.setLastName("Silva");
+		passenger.setAge(21);
+		
+		PassengerDao pd = new PassengerDao();
+		pd.insertPassenger(passenger);
+		
 //		System.out.println("-------- MySQL JDBC Connection Testing ------------");
 //		/* Since JDBC 4.0, loading is automatically done .
 //		 *      try {
