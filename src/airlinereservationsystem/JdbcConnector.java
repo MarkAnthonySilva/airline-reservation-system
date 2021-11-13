@@ -23,7 +23,6 @@ public class JdbcConnector {
 		connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
 		
 		if (connection != null) {
-			System.out.println("You made it, take control your database now!");
 			return connection;
 		} else {
 			System.out.println("Failed to make connection!");
