@@ -21,6 +21,7 @@ public class PassengerView {
 		System.out.println("1: Insert Passenger");
 		System.out.println("2: Select Passengers by Name");
 		System.out.println("3: Select Passengers by pID");
+		System.out.println("4: Delete Passengers by Name");
 		
 		System.out.print("\nEnter integer: ");
 		String navIntAsString = this.sc.next();

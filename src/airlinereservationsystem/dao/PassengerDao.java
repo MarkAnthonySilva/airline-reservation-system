@@ -11,6 +11,7 @@ public class PassengerDao {
 	private final String INSERT_PASSENGER = "INSERT INTO passenger (firstName, lastName, age) VALUES (?, ?, ?)";
 	private final String SELECT_PASS_NAME = "SELECT * FROM passenger WHERE firstName = ?";
 	private final String SELECT_PASS_PID = "SELECT * FROM passenger WHERE pID = ?";
+	private final String DELETE_PASS_PID = "DELETE FROM passenger WHERE pID = ?";
 	
 	public void insertPassenger(Passenger passenger) {
 		try {
@@ -48,5 +49,17 @@ public class PassengerDao {
 		}
 		
 		return null;
+	}
+
+	public void deletePassengerByPid(int pID) {
+		try {
+			PreparedStatement ps = this.CONNECTION.prepareStatement(this.DELETE_PASS_PID);
+			ps.setInt(1, pID);
+			ps.executeUpdate();
+			System.out.println("Passenger (pID: " + pID + ") Sucessfully deleted");
+		} catch (Exception e) {
+			System.out.println("Passenger (pID: " + pID + ") Failed to delete");
+			e.printStackTrace();
+		}
 	}
 }

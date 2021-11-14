@@ -45,7 +45,7 @@ public class PassengerController {
 			// Insert new Passenger
 			Passenger passenger = new Passenger();
 			this.pv.displayInsert(passenger);
-			//			System.out.println(passenger);
+			//System.out.println(passenger);
 			this.pd.insertPassenger(passenger);
 			this.displayPassengerMenu();
 			break;
@@ -58,6 +58,9 @@ public class PassengerController {
 		case 3: 
 			// Select Passenger by pid
 			break; 
+		case 4:
+			// Delete Passengers by firstName
+			this.passengerTable("PASSENGER LIST FOR DELETE");
 		default:
 			System.out.println("Invalid Navigation Integer\n");
 			this.displayPassengerMenu();
@@ -106,6 +109,9 @@ public class PassengerController {
 		if(menuTitle.equals("PASSENGER LIST FOR SELECTION"))
 		{
 			this.selectTable(resultSetHash, rowInput);
+		} else if(menuTitle.equals("PASSENGER LIST FOR DELETE")) {
+			this.pd.deletePassengerByPid(resultSetHash.get(rowInput));
+			this.displayPassengerMenu();
 		}
 
 	}
