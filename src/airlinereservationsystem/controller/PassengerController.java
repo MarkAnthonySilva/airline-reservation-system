@@ -36,12 +36,13 @@ public class PassengerController {
 		}
 
 		switch(navInt) {
-		case 0: 
+		case 0: {
 			// Navigate back to Home Menu
 			this.hc.homeMenu();
 			break;
-
-		case 1:
+		}
+		
+		case 1:{
 			// Insert new Passenger
 			Passenger passenger = new Passenger();
 			this.pv.displayInsert(passenger);
@@ -49,18 +50,24 @@ public class PassengerController {
 			this.pd.insertPassenger(passenger);
 			this.passengerMainMenu();
 			break;
+		}
 
-		case 2: 
-			// Select Passenger by name	
-			this.passengerTable("PASSENGER LIST FOR SELECTION");
+		case 2: {
+			// Select Passenger by name
+			String firstName = this.pv.displayNameSelect();
+			this.passengerTable("PASSENGER LIST FOR SELECTION", firstName);
 			break;
-
+		}
 		case 3: 
 			// Select Passenger by pid
 			break; 
-		case 4:
+		case 4:{
 			// Delete Passengers by firstName
-			this.passengerTable("PASSENGER LIST FOR DELETE");
+			String firstName = this.pv.displayNameSelect();
+			this.passengerTable("PASSENGER LIST FOR DELETE", firstName);
+			break;
+		}
+
 		default:
 			System.out.println("Invalid Navigation Integer\n");
 			this.passengerMainMenu();
@@ -76,52 +83,54 @@ public class PassengerController {
 	 * 0 for input is reserved for navigating back to the Passenger Menu
 	 * @throws SQLException
 	 */
-	public void passengerTable(String menuTitle) throws SQLException {
+	public void passengerTable(String menuTitle, String firstName) throws SQLException {
 		// Display input for passenger bane
-		String firstName = this.pv.displayNameSelect();
-		ResultSet rs = this.pd.selectPassengerName(firstName);
+		HashMap<Integer, Passenger> passengerMap = this.pd.selectPassengerName(firstName);	// Hash Map with All Pasengers with a specifc Name
 
-		// Display all passengers with the firstName being searched for
-		HashMap<Integer , Integer> resultSetHash = new HashMap<Integer, Integer>();	//Key is row count, value is the pID
-		String rowInputAsString = this.pv.displayListOfPassengers(rs, menuTitle, resultSetHash);
-
-		// Check if rowInputAsString is a String and if it is converts that into an integer
-		int rowInput = 0;
-		if(helper.isStringNumeric(rowInputAsString) == true){
-			rowInput = Integer.parseInt(rowInputAsString);
-		} else {
-			System.out.println("Input Must be an integer");
-			rs = this.pd.selectPassengerName(firstName);
-			pv.displayListOfPassengers(rs, menuTitle, resultSetHash);;
+		// If hm is return as null, Passenger with specified firstName was not found
+		if(passengerMap == null) {
+			System.out.println("Passenger Not Found");
+			firstName = this.pv.displayNameSelect();
+			this.passengerTable(menuTitle, firstName);
 		}
 
-		// If the row input does not exist within the table reinput
-		if (rowInput == 0)	{
+		// Display all passengers with the firstName being searched for
+		String rowInputAsString = this.pv.displayListOfPassengers(menuTitle, passengerMap);
+
+		// Check if rowInputAsString is a numeric then convert that into rowInput
+		int passengerRow = 0;	// Row of the Passenger in table
+		if(helper.isStringNumeric(rowInputAsString) == true){
+			passengerRow = Integer.parseInt(rowInputAsString);
+
+			// Input is not numeric, so Table must be redisplayed
+		} else {
+			System.out.println("Input Must be an integer");
+			this.passengerTable(menuTitle, firstName);
+			return;
+		}
+
+		// Check if row Input is a valid Input
+		if (passengerRow == 0)	{
 			this.passengerMainMenu();	// If row input is 0 navigate back to Passenger Menu
-		} else if(!resultSetHash.containsKey(rowInput)) {
+			return;
+		} else if(!passengerMap.containsKey(passengerRow)) {
 			System.out.println("Input is not a valid row");
-			rs = this.pd.selectPassengerName(firstName);
-			pv.displayListOfPassengers(rs, menuTitle, resultSetHash);;
+			this.passengerTable(menuTitle, firstName);
+			return;
 		}
 		//System.out.println("PID IS: " + resultSetHash.get(rowInput));
 
 		// Table behavior dictated by query type
 		if(menuTitle.equals("PASSENGER LIST FOR SELECTION"))
 		{
-			// Get The information of the Passenger that was inputted by the user at rowInput
-			rs = this.pd.selectPassengerByPid(resultSetHash.get(rowInput));
-			Passenger p = new Passenger();
-			rs.next();
-			p.setFirstName(rs.getString("firstName"));
-			p.setLastName(rs.getString("lastName"));
-			p.setpID(rs.getInt("pID"));
-			p.setAge(rs.getInt("age"));
-			this.passengerPIDMenu(p);
+			this.passengerPIDMenu(passengerMap.get(passengerRow));
+			return;
 		} else if(menuTitle.equals("PASSENGER LIST FOR DELETE")) {
-			this.pd.deletePassengerByPid(resultSetHash.get(rowInput));
+			this.pd.deletePassengerByPid(passengerMap.get(passengerRow).getpID());
 			this.passengerMainMenu();
+			return;
 		}
-
+		 return;
 	}
 	
 	/**

@@ -3,6 +3,7 @@ package airlinereservationsystem.view;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import airlinereservationsystem.helper;
@@ -95,45 +96,38 @@ public class PassengerView {
 	 */
 	public String displayNameSelect() {
 		System.out.print("Select Passenger First Name: ");
-		this.sc.nextLine();
-		return this.sc.nextLine();
+		return this.sc.next();
 	}
 	
 	/**
-	 * Will receive a param of ResultSet rs and will display that information in table format with a navigation integer.
-	 * This navigation integer can then be used to get more details on that passenger or delete that Passenger depending on the query.
-	 * @param rs the ResultSet to be displayed by the console in table format.
-	 * @param menuTitle title of the menu which depends on which query is being done on the table
-	 * @parm hm	Hashmap to store rowCount as key and the corresponding pID as the value
+	 * Display a list of Passengers to be selected from
+	 * @param menuTitle	The title of this Passenger Table. Two Possibilities (SELECT PASSENGER) OR (DELETE PASSENGER)
+	 * @param hm a HashMap<Integer, Passenger> that contains all the Passengers to be displayed. Key = Row number, Value = Passenger Object with information about Passenger
+	 * @return The row of the Passenger to be selected for this table of Passengers
+	 * @throws SQLException
 	 */
-	public String displayListOfPassengers(ResultSet rs, String menuTitle, HashMap<Integer, Integer> hm) throws SQLException {
+	public String displayListOfPassengers(String menuTitle, HashMap<Integer, Passenger> hm) throws SQLException {
 		System.out.println("\n" + menuTitle);
-		
-		// First Check if the Result Set is Empty. If empty display "Passenger Not Found"
-		if(rs.next() == false) {
-			System.out.println("Passenger Not Found");
-			this.display();
+
+
+		System.out.println("0: Go Back to Passenger Menu");
+		// Columns For Passenger List
+		System.out.printf("%6s %24s %24s %6s \n", "pID", "First Name", "Last Name", "Age");
+
+		for(Map.Entry<Integer, Passenger> entry : hm.entrySet())
+		{
+			Passenger p = entry.getValue();
+			System.out.format("%d: %3d %24s %24s %6d\n" , entry.getKey(), p.getpID(), p.getFirstName(), p.getLastName(), p.getAge());
 		}
-		else {
-			int rowCount = 1;
-			System.out.println("0: Go Back to Passenger Menu");
-			// Columns For Passenger List
-			System.out.printf("%6s %24s %24s %6s \n", "pID", "First Name", "Last Name", "Age");
-			
-			// Loop Through all Passengers in the Result Set and display it with rowCount for navigation
-			do {
-				int pID = rs.getInt("pID");
-				int age = rs.getInt("age");
-				String firstName = rs.getString("firstName");
-				String lastName = rs.getString("lastName");
-				System.out.format("%d: %3d %24s %24s %6d\n" , rowCount, pID, firstName, lastName, age);
-				hm.put(rowCount, pID);
-				rowCount++;
-			} while(rs.next());
-		}
-		
+
 		System.out.print("\nEnter integer: ");
 		String navIntAsString = this.sc.next();
 		return navIntAsString;
+	}
+
+public String displaypIDSelect() {
+	System.out.print("Select Passenger by PID: ");
+	this.sc.hasNextLine();
+		return this.sc.nextLine();
 	}
 }

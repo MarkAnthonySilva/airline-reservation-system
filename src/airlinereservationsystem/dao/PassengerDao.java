@@ -2,6 +2,7 @@ package airlinereservationsystem.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashMap;
 
 import airlinereservationsystem.JdbcConnector;
 import airlinereservationsystem.model.Passenger;
@@ -32,15 +33,44 @@ public class PassengerDao {
 	}
 	
 	/**
-	 * Returns a Result Set of all Passengers in the Passenger Table with a specific Name
+	 * Returns a HashMap of all Passengers in the Passenger Table with a specific Name. 
 	 * @param name the Name of Passenger to be Searched for
-	 * @return Result set of all Passengers with the name as param
+	 * @return HashMap of all Passengers with the name as param. Key = rowCount for display, value = Passenger object with passenger information
 	 */
-	public ResultSet selectPassengerName(String name) {
+	public HashMap<Integer, Passenger> selectPassengerName(String name) {
 		try {
 			PreparedStatement ps = this.CONNECTION.prepareStatement(this.SELECT_PASS_NAME);
 			ps.setString(1, name);
-			return ps.executeQuery();
+			
+			ResultSet rs = ps.executeQuery();
+			
+			// ResultSet is empty return an empty Hashmap
+			if(rs.next() == false) {
+				return null;
+			}
+			else {
+				// Loop thorough the whole Result Set and store results into a HashMap
+				int rowCount = 1;
+				HashMap<Integer , Passenger> resultSetHash = new HashMap<Integer, Passenger>();	//Key is row count, value is the Passenger
+				// Loop Through all Passengers in the Result Set and store it into a Hashmap
+				do {
+					Passenger p = new Passenger();
+					int pID = rs.getInt("pID");
+					int age = rs.getInt("age");
+					String firstName = rs.getString("firstName");
+					String lastName = rs.getString("lastName");
+					
+					p.setpID(pID);
+					p.setAge(age);
+					p.setFirstName(firstName);
+					p.setLastName(lastName);
+					
+					resultSetHash.put(rowCount, p);
+					rowCount++;
+				} while(rs.next());
+				
+				return resultSetHash;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
