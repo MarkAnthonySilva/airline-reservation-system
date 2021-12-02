@@ -10,7 +10,7 @@ public class AirlineSystem {
 	{
 		Scanner sc = new Scanner(System.in);
 		HomeController hc = new HomeController(sc);
-		hc.displayHomeMenu();
+		hc.homeMenu();
 		
 	}
 }

@@ -18,7 +18,7 @@ public class HomeController {
 	 * Starts the airline reservation system by invoking the homeMenu view in the console
 	 * @throws SQLException 
 	 */
-	public void displayHomeMenu() throws SQLException {
+	public void homeMenu() throws SQLException {
 		HomeMenu hm = new HomeMenu(this.sc);
 		String navIntAsString = hm.displayHome();
 		
@@ -26,7 +26,7 @@ public class HomeController {
 			this.navInt = Integer.parseInt(navIntAsString);
 		} else {
 			System.out.println("Input Must be an integer");
-			this.displayHomeMenu();
+			this.homeMenu();
 		}
 		
 		switch(this.navInt) {
@@ -36,11 +36,11 @@ public class HomeController {
 			break;
 		case 1: 
 			PassengerController pc = new PassengerController(this);
-			pc.displayPassengerMenu();
+			pc.passengerMainMenu();
 			break;
 		default:
 			System.out.println("Invalid Navigation Integer");
-			this.displayHomeMenu();
+			this.homeMenu();
 			break;
 		}
 	}

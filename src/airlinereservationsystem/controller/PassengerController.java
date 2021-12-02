@@ -24,7 +24,7 @@ public class PassengerController {
 	 * Main menu for Passenger that displays all possible function with Passenger
 	 * @throws SQLException
 	 */
-	public void displayPassengerMenu() throws SQLException {
+	public void passengerMainMenu() throws SQLException {
 		String navIntAsString = this.pv.display();
 		
 		int navInt = 0;
@@ -32,13 +32,13 @@ public class PassengerController {
 			navInt = Integer.parseInt(navIntAsString);
 		} else {
 			System.out.println("Input Must be an integer");
-			this.displayPassengerMenu();
+			this.passengerMainMenu();
 		}
 
 		switch(navInt) {
 		case 0: 
 			// Navigate back to Home Menu
-			this.hc.displayHomeMenu();
+			this.hc.homeMenu();
 			break;
 
 		case 1:
@@ -47,7 +47,7 @@ public class PassengerController {
 			this.pv.displayInsert(passenger);
 			//System.out.println(passenger);
 			this.pd.insertPassenger(passenger);
-			this.displayPassengerMenu();
+			this.passengerMainMenu();
 			break;
 
 		case 2: 
@@ -63,7 +63,7 @@ public class PassengerController {
 			this.passengerTable("PASSENGER LIST FOR DELETE");
 		default:
 			System.out.println("Invalid Navigation Integer\n");
-			this.displayPassengerMenu();
+			this.passengerMainMenu();
 			break;
 
 		}
@@ -97,7 +97,7 @@ public class PassengerController {
 
 		// If the row input does not exist within the table reinput
 		if (rowInput == 0)	{
-			this.displayPassengerMenu();	// If row input is 0 navigate back to Passenger Menu
+			this.passengerMainMenu();	// If row input is 0 navigate back to Passenger Menu
 		} else if(!resultSetHash.containsKey(rowInput)) {
 			System.out.println("Input is not a valid row");
 			rs = this.pd.selectPassengerName(firstName);
@@ -108,28 +108,28 @@ public class PassengerController {
 		// Table behavior dictated by query type
 		if(menuTitle.equals("PASSENGER LIST FOR SELECTION"))
 		{
-			this.selectTable(resultSetHash, rowInput);
+			// Get The information of the Passenger that was inputted by the user at rowInput
+			rs = this.pd.selectPassengerByPid(resultSetHash.get(rowInput));
+			Passenger p = new Passenger();
+			rs.next();
+			p.setFirstName(rs.getString("firstName"));
+			p.setLastName(rs.getString("lastName"));
+			p.setpID(rs.getInt("pID"));
+			p.setAge(rs.getInt("age"));
+			this.passengerPIDMenu(p);
 		} else if(menuTitle.equals("PASSENGER LIST FOR DELETE")) {
 			this.pd.deletePassengerByPid(resultSetHash.get(rowInput));
-			this.displayPassengerMenu();
+			this.passengerMainMenu();
 		}
 
 	}
 	
 	/**
 	 * Controls which function to execute while in the individual Passenger view that contains more detailed information about a Passenger
-	 * @param hm a hashmap that contain all the row (key), and pid (value) pairs for a specific Passenger with a given First Name
-	 * @param rowInput the row that is wanted from the hashmap to extract the information about a given passenger
+	 * @param p the Passenger that is to be displayed in more detail
 	 * @throws SQLException
 	 */
-	public void selectTable(HashMap<Integer, Integer> hm, int rowInput) throws SQLException{
-		ResultSet rs = this.pd.selectPassengerByPid(hm.get(rowInput));
-		Passenger p = new Passenger();
-		rs.next();
-		p.setFirstName(rs.getString("firstName"));
-		p.setLastName(rs.getString("lastName"));
-		p.setpID(rs.getInt("pID"));
-		p.setAge(rs.getInt("age"));
+	public void passengerPIDMenu(Passenger p) throws SQLException{
 		String navIntAsString = this.pv.displayPassenger(p);
 		
 		int navInt = 0;
@@ -143,7 +143,7 @@ public class PassengerController {
 		switch(navInt) {
 		case 0: 
 			// Navigate back to Passenger Menu
-			this.displayPassengerMenu();
+			this.passengerMainMenu();
 			break;
 
 		case 1:
@@ -159,7 +159,7 @@ public class PassengerController {
 			break; 
 		default:
 			System.out.println("Invalid Navigation Integer\n");
-			this.selectTable(hm, rowInput);
+			this.passengerPIDMenu(p);
 			break;
 
 		}
