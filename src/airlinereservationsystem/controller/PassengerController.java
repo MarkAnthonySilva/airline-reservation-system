@@ -118,8 +118,8 @@ public class PassengerController {
 	
 	/**
 	 * Controls which function to execute while in the individual Passenger view that contains more detailed information about a Passenger
-	 * @param hm a hashmap that contain all the row (key), and pid (value) pairs for a passenger table
-	 * @param rowInput the row that is wanted from the hashmap to extract the pid
+	 * @param hm a hashmap that contain all the row (key), and pid (value) pairs for a specific Passenger with a given First Name
+	 * @param rowInput the row that is wanted from the hashmap to extract the information about a given passenger
 	 * @throws SQLException
 	 */
 	public void selectTable(HashMap<Integer, Integer> hm, int rowInput) throws SQLException{

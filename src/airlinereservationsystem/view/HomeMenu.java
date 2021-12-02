@@ -8,6 +8,11 @@ public class HomeMenu {
 	public HomeMenu(Scanner sc) {
 		this.sc = sc;
 	}
+	
+	/**
+	 * Home menu for Airline Reservation System. Can Access all the different information for the application.
+	 * @return
+	 */
 	public String displayHome() {
 		System.out.println("\nHOME MENU\nNavigate to where");
 		System.out.println("0: Close Airline System");

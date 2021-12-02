@@ -13,6 +13,10 @@ public class PassengerDao {
 	private final String SELECT_PASS_PID = "SELECT * FROM passenger WHERE pID = ?";
 	private final String DELETE_PASS_PID = "DELETE FROM passenger WHERE pID = ?";
 	
+	/**
+	 * SQL Command Call to insert Passenger into the Passenger Table. Accepts the type Passenger
+	 * @param passenger
+	 */
 	public void insertPassenger(Passenger passenger) {
 		try {
 			PreparedStatement ps = this.CONNECTION.prepareStatement(this.INSERT_PASSENGER);
@@ -27,6 +31,11 @@ public class PassengerDao {
 		}
 	}
 	
+	/**
+	 * Returns a Result Set of all Passengers in the Passenger Table with a specific Name
+	 * @param name the Name of Passenger to be Searched for
+	 * @return Result set of all Passengers with the name as param
+	 */
 	public ResultSet selectPassengerName(String name) {
 		try {
 			PreparedStatement ps = this.CONNECTION.prepareStatement(this.SELECT_PASS_NAME);
@@ -39,6 +48,11 @@ public class PassengerDao {
 		return null;
 	}
 
+	/**
+	 * Returns a Result Set of a Passenger with a specific PID. Should only return one passenger since PID is unique to each passenger
+	 * @param pID the unique PID to be searched in the Passenger Table
+	 * @return Result Set of a single Passenger with a specific PID in param
+	 */
 	public ResultSet selectPassengerByPid(int pID) {
 		try {
 			PreparedStatement ps = this.CONNECTION.prepareStatement(this.SELECT_PASS_PID);
@@ -51,6 +65,10 @@ public class PassengerDao {
 		return null;
 	}
 
+	/**
+	 * Deletes a specific Passenger with a given pID
+	 * @param pID the Passenger to be deleted
+	 */
 	public void deletePassengerByPid(int pID) {
 		try {
 			PreparedStatement ps = this.CONNECTION.prepareStatement(this.DELETE_PASS_PID);

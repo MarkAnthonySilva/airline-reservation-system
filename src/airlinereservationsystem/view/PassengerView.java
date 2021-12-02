@@ -14,7 +14,12 @@ public class PassengerView {
 	public PassengerView(Scanner sc) {
 		this.sc = sc;
 	}
-
+	
+	/**
+	 * Main Menu For Passenger SQL Commands. Displays command to Manipulate Passenger Table like
+	 * Insertion, Read, and Delete.
+	 * @return
+	 */
 	public String display() {
 		System.out.println("\nPASSENGER MENU\nFunctions of Passenger");
 		System.out.println("0: Go to Home Menu");
@@ -103,7 +108,8 @@ public class PassengerView {
 	 */
 	public String displayListOfPassengers(ResultSet rs, String menuTitle, HashMap<Integer, Integer> hm) throws SQLException {
 		System.out.println("\n" + menuTitle);
-
+		
+		// First Check if the Result Set is Empty. If empty display "Passenger Not Found"
 		if(rs.next() == false) {
 			System.out.println("Passenger Not Found");
 			this.display();
@@ -111,7 +117,10 @@ public class PassengerView {
 		else {
 			int rowCount = 1;
 			System.out.println("0: Go Back to Passenger Menu");
+			// Columns For Passenger List
 			System.out.printf("%6s %24s %24s %6s \n", "pID", "First Name", "Last Name", "Age");
+			
+			// Loop Through all Passengers in the Result Set and display it with rowCount for navigation
 			do {
 				int pID = rs.getInt("pID");
 				int age = rs.getInt("age");
