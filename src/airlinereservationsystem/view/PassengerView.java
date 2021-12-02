@@ -1,6 +1,5 @@
 package airlinereservationsystem.view;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -95,6 +94,7 @@ public class PassengerView {
 	 * @return the name to be searched for
 	 */
 	public String displayNameSelect() {
+		System.out.println("0: Go Back to Passenger Menu");
 		System.out.print("Select Passenger First Name: ");
 		return this.sc.next();
 	}
@@ -124,10 +124,14 @@ public class PassengerView {
 		String navIntAsString = this.sc.next();
 		return navIntAsString;
 	}
-
-public String displaypIDSelect() {
-	System.out.print("Select Passenger by PID: ");
-	this.sc.hasNextLine();
-		return this.sc.nextLine();
+	
+	/**
+	 * A prompt to display which PID is to be searched for in the database
+	 * @return the PID to be searched for
+	 */
+	public String displaypIDSelect() {
+		System.out.println("0: Go Back to Passenger Menu");
+		System.out.print("Select Passenger by PID: ");
+		return this.sc.next();
 	}
 }

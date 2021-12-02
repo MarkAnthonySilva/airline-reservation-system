@@ -83,15 +83,33 @@ public class PassengerDao {
 	 * @param pID the unique PID to be searched in the Passenger Table
 	 * @return Result Set of a single Passenger with a specific PID in param
 	 */
-	public ResultSet selectPassengerByPid(int pID) {
+	public Passenger selectPassengerByPid(int pID) {
 		try {
 			PreparedStatement ps = this.CONNECTION.prepareStatement(this.SELECT_PASS_PID);
 			ps.setInt(1, pID);
-			return ps.executeQuery();
+			ResultSet rs = ps.executeQuery();
+			// ResultSet is empty return an empty Hashmap
+			if(rs.next() == false) {
+				return null;
+			}
+
+			Passenger p = new Passenger();
+			int age = rs.getInt("age");
+			String firstName = rs.getString("firstName");
+			String lastName = rs.getString("lastName");
+
+			p.setpID(pID);
+			p.setAge(age);
+			p.setFirstName(firstName);
+			p.setLastName(lastName);
+
+			return p;
+
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
 

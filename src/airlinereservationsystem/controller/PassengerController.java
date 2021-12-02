@@ -1,6 +1,5 @@
 package airlinereservationsystem.controller;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -58,12 +57,31 @@ public class PassengerController {
 			this.passengerTable("PASSENGER LIST FOR SELECTION", firstName);
 			break;
 		}
-		case 3: 
+		case 3: {
 			// Select Passenger by pid
-			break; 
+			String pIDAsString = this.pv.displaypIDSelect();
+			int pID = 0;
+			// If output was 0 go back to Passenger Main Menu or not a number
+			if(pIDAsString.equals("0")) {
+				this.passengerMainMenu();
+			} else if (!helper.isStringNumeric(pIDAsString)) {
+				System.out.println("Input Must be an Integer");
+				this.passengerMainMenu();
+			} else {
+				pID = Integer.parseInt(pIDAsString);
+			}
+			
+			Passenger p = this.pd.selectPassengerByPid(pID);
+			this.passengerPIDMenu(p);
+			break;
+		}
 		case 4:{
 			// Delete Passengers by firstName
 			String firstName = this.pv.displayNameSelect();
+			if(firstName.equals("0")) {
+				this.passengerMainMenu();
+			}
+			
 			this.passengerTable("PASSENGER LIST FOR DELETE", firstName);
 			break;
 		}
@@ -84,6 +102,11 @@ public class PassengerController {
 	 * @throws SQLException
 	 */
 	public void passengerTable(String menuTitle, String firstName) throws SQLException {
+		
+		if(firstName.equals("0")) {
+			this.passengerMainMenu();
+		}
+		
 		// Display input for passenger bane
 		HashMap<Integer, Passenger> passengerMap = this.pd.selectPassengerName(firstName);	// Hash Map with All Pasengers with a specifc Name
 
