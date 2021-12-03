@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 import airlinereservationsystem.helper;
 import airlinereservationsystem.model.Airline;
-import airlinereservationsystem.model.Passenger;
 
 public class AirlineView {
 	private Scanner sc;
