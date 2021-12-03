@@ -1,9 +1,12 @@
 package airlinereservationsystem.view;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import airlinereservationsystem.helper;
 import airlinereservationsystem.model.Airline;
+import airlinereservationsystem.model.Passenger;
 
 public class AirlineView {
 	private Scanner sc;
@@ -20,7 +23,7 @@ public class AirlineView {
 		System.out.println("\nAIRLINE MENU\nFunctions of Airline");
 		System.out.println("0: Go to Home Menu");
 		System.out.println("1: Insert Airline");
-//		System.out.println("2: Select Airline by Name");
+		System.out.println("2: Select All Airline");
 //		System.out.println("3: Select Airline by aID");
 //		System.out.println("4: Delete Airline by Name");
 		
@@ -58,6 +61,17 @@ public class AirlineView {
 			System.out.println("The Airline " + a.getName() + " was successfully added to database");
 		} else {
 			System.out.println("The Airline " + a.getName() + " was NOT successfully added to database");
+		}
+	}
+	
+	public void displayListOfAirlines(HashMap<Integer, Airline> airlineMap) {
+		System.out.println("\n" + "LIST OF ALL AIRLINES");
+		System.out.printf("%6s %-32s\n", "aID", "Airline Name");
+		
+		for(Map.Entry<Integer, Airline> entry : airlineMap.entrySet())
+		{
+			Airline a = entry.getValue();
+			System.out.format("%d: %-3d %-32s\n" , entry.getKey(), a.getaID(), a.getName());
 		}
 	}
 }

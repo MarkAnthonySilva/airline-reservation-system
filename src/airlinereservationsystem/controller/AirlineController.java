@@ -1,6 +1,7 @@
 package airlinereservationsystem.controller;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import airlinereservationsystem.helper;
 import airlinereservationsystem.dao.AirlineDao;
@@ -41,7 +42,7 @@ String navIntAsString = this.av.display();
 			break;
 		}
 		
-		case 1:{
+		case 1: {
 			// Insert new Passenger
 			Airline airline = new Airline();
 			this.av.displayInsert(airline);
@@ -52,11 +53,28 @@ String navIntAsString = this.av.display();
 			break;
 		}
 		
+		case 2: {
+			this.airlineTable();
+			break;
+		}
+		
 		default:
 			System.out.println("Invalid Navigation Integer\n");
 			this.airlineMainMenu();
 			break;
 
 		}
+	}
+	
+	public void airlineTable() throws SQLException {
+		HashMap<Integer, Airline> airlineMap = this.ad.selectAllAirlines();
+		
+		if(airlineMap == null) {
+			System.out.println("No Airlines within the database");
+			this.airlineMainMenu();
+		}
+		
+		this.av.displayListOfAirlines(airlineMap);
+		this.airlineMainMenu();
 	}
 }
