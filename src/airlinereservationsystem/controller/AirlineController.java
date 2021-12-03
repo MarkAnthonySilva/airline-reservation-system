@@ -54,7 +54,23 @@ String navIntAsString = this.av.display();
 		}
 		
 		case 2: {
+			// Display all airlines
 			this.airlineTable();
+			this.airlineMainMenu();
+			break;
+		}
+		
+		case 3: {
+			// Delete Airline Given an AID
+			// Only Display Delete if there are actual airlines to delete
+			if(this.airlineTable()) {
+				String aIDAsString = this.av.displayDelete();
+				int aID = Integer.parseInt(aIDAsString);
+				Boolean isDeleted = this.ad.deletePassengerByAid(aID);
+				this.av.displayDeleteSucess(isDeleted, aID);
+			}
+			
+			this.airlineMainMenu();
 			break;
 		}
 		
@@ -66,15 +82,15 @@ String navIntAsString = this.av.display();
 		}
 	}
 	
-	public void airlineTable() throws SQLException {
+	public boolean airlineTable() throws SQLException {
 		HashMap<Integer, Airline> airlineMap = this.ad.selectAllAirlines();
 		
 		if(airlineMap == null) {
 			System.out.println("No Airlines within the database");
-			this.airlineMainMenu();
+			return false;
 		}
 		
 		this.av.displayListOfAirlines(airlineMap);
-		this.airlineMainMenu();
+		return true;
 	}
 }

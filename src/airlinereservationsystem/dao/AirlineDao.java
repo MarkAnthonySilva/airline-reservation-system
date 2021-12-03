@@ -11,7 +11,13 @@ public class AirlineDao {
 	private final Connection CONNECTION = JdbcConnector.createNewConnection();
 	private final String INSERT_AIRLINE = "INSERT INTO airline (name) VALUES (?)";
 	private final String SELECT_ALL_AIRLINE = "SELECT * FROM airline";
+	private final String DELETE_AIRLINE = "DELETE FROM airline WHERE aID = ?";
 	
+	/**
+	 * Insert an airline into the airline database
+	 * @param a the airline to be inserted
+	 * @return true if the airline was inserted sucessfully, otherwise false
+	 */
 	public boolean insertAirline(Airline a) {
 		try {
 			PreparedStatement ps = this.CONNECTION.prepareStatement(this.INSERT_AIRLINE);
@@ -24,6 +30,10 @@ public class AirlineDao {
 		}
 	}
 	
+	/**
+	 * Gets all the airlines in the airline table and returns the data as Hashmap
+	 * @return HashMap of Airlines in the airline table
+	 */
 	public HashMap<Integer, Airline> selectAllAirlines(){
 		try {
 			PreparedStatement ps = this.CONNECTION.prepareStatement(this.SELECT_ALL_AIRLINE);
@@ -52,5 +62,17 @@ public class AirlineDao {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public boolean deletePassengerByAid(int aID) {
+		try {
+			PreparedStatement ps = this.CONNECTION.prepareStatement(this.DELETE_AIRLINE);
+			ps.setInt(1, aID);
+			ps.executeUpdate();
+			return true;
+		} catch (Exception e){
+//			e.printStackTrace();
+			return false;
+		}
 	}
 }

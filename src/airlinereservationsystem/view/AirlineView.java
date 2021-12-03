@@ -24,8 +24,7 @@ public class AirlineView {
 		System.out.println("0: Go to Home Menu");
 		System.out.println("1: Insert Airline");
 		System.out.println("2: Select All Airline");
-//		System.out.println("3: Select Airline by aID");
-//		System.out.println("4: Delete Airline by Name");
+		System.out.println("3: Delete Airline by aID");
 		
 		System.out.print("\nEnter integer: ");
 		String navIntAsString = this.sc.next();
@@ -64,14 +63,50 @@ public class AirlineView {
 		}
 	}
 	
+	/**
+	 * Display prompt for deletion of an airline using their aID
+	 * @return the aID of the airline to be deleted
+	 */
+	public String displayDelete() {
+		System.out.println("\nAirline to be Deleted");
+		
+		System.out.print("Airline aID: ");
+		this.sc.nextLine();
+		String aIDAsString = this.sc.nextLine();
+		while(aIDAsString.equals("") || !helper.isStringNumeric(aIDAsString)) {
+			System.out.println("\nAirline aID cannot be blank and must be an integer");
+			System.out.print("Airline aID: ");
+			aIDAsString = this.sc.nextLine();
+		}
+		
+		return aIDAsString;
+	}
+	
+	/**
+	 * Display the success of deletion of an airline
+	 * @param isDeleted true if airline was successfully deleted, otherwise false
+	 * @param aID the aID of the airline that was deleted
+	 */
+	public void displayDeleteSucess(Boolean isDeleted, int aID) {
+		if(isDeleted) {
+			System.out.println("The Airline with the aID: " + aID + " was successfully deleted or does not exist within database");
+		} else {
+			System.out.println("The Airline with the aID: " + aID + " was NOT successfully deleted");
+		}
+	}
+	
+	/**
+	 * Display All airlines in the airline table
+	 * @param airlineMap the hashmap that contains all airlines
+	 */
 	public void displayListOfAirlines(HashMap<Integer, Airline> airlineMap) {
 		System.out.println("\n" + "LIST OF ALL AIRLINES");
-		System.out.printf("%6s %-32s\n", "aID", "Airline Name");
+		System.out.printf("%-3s %-32s\n", "aID", "Airline Name");
 		
 		for(Map.Entry<Integer, Airline> entry : airlineMap.entrySet())
 		{
 			Airline a = entry.getValue();
-			System.out.format("%d: %-3d %-32s\n" , entry.getKey(), a.getaID(), a.getName());
+			System.out.format("%-3d %-32s\n" , a.getaID(), a.getName());
 		}
 	}
 }
