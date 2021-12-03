@@ -78,8 +78,8 @@ public class PassengerView {
 		
 		System.out.print("Passenger Age: ");
 		String ageString = this.sc.nextLine();
-		while(ageString.equals("") && helper.isStringNumeric(ageString) == false) {
-			System.out.println("\nAge cannot be blank");
+		while(ageString.equals("") || !helper.isStringNumeric(ageString)) {
+			System.out.println("\nAge cannot be blank and must be an integer");
 			System.out.print("Passenger Age: ");
 			ageString = this.sc.nextLine();
 		}
