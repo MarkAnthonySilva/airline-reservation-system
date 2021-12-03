@@ -112,12 +112,12 @@ public class PassengerView {
 
 		System.out.println("0: Go Back to Passenger Menu");
 		// Columns For Passenger List
-		System.out.printf("%6s %24s %24s %6s \n", "pID", "First Name", "Last Name", "Age");
+		System.out.printf("%6s %-24s %-24s %-6s \n", "pID", "First Name", "Last Name", "Age");
 
 		for(Map.Entry<Integer, Passenger> entry : hm.entrySet())
 		{
 			Passenger p = entry.getValue();
-			System.out.format("%d: %3d %24s %24s %6d\n" , entry.getKey(), p.getpID(), p.getFirstName(), p.getLastName(), p.getAge());
+			System.out.format("%d: %-3d %-24s %-24s %-6d\n" , entry.getKey(), p.getpID(), p.getFirstName(), p.getLastName(), p.getAge());
 		}
 
 		System.out.print("\nEnter integer: ");
