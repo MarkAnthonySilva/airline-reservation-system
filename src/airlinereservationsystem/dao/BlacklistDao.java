@@ -2,6 +2,7 @@ package airlinereservationsystem.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import airlinereservationsystem.JdbcConnector;
 import airlinereservationsystem.model.Blacklist;
@@ -24,7 +25,8 @@ public class BlacklistDao {
 			ps.executeUpdate();
 			
 			return true;
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 			return false;
 		}
 	}
