@@ -118,8 +118,9 @@ public class PassengerController {
 		}
 
 		// Display all passengers with the firstName being searched for
-		String rowInputAsString = this.pv.displayListOfPassengers(menuTitle, passengerMap);
-
+		this.pv.displayListOfPassengers(menuTitle, true, passengerMap);
+		String rowInputAsString = this.pv.displayPassengerPrompt();
+		
 		// Check if rowInputAsString is a numeric then convert that into rowInput
 		int passengerRow = 0;	// Row of the Passenger in table
 		if(helper.isStringNumeric(rowInputAsString) == true){
