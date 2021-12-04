@@ -25,8 +25,8 @@ public class AirlineController {
 	 * @throws SQLException
 	 */
 	public void airlineMainMenu() throws SQLException {
-String navIntAsString = this.av.display();
-		
+		String navIntAsString = this.av.display();
+
 		int navInt = 0;
 		if(helper.isStringNumeric(navIntAsString) == true){
 			navInt = Integer.parseInt(navIntAsString);
