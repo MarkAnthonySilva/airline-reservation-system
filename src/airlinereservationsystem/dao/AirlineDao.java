@@ -64,6 +64,11 @@ public class AirlineDao {
 		return null;
 	}
 	
+	/**
+	 * Delete An airline by a given aID
+	 * @param aID the aID of the airline to be deleted
+	 * @return true if deletion was completed, otherwise false
+	 */
 	public boolean deletePassengerByAid(int aID) {
 		try {
 			PreparedStatement ps = this.CONNECTION.prepareStatement(this.DELETE_AIRLINE);
