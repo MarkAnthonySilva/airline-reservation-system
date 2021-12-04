@@ -42,9 +42,9 @@ public class PassengerView {
 	public String displayPassenger(Passenger passenger) {
 		System.out.println("\n" + passenger.getFirstName() + " " + passenger.getLastName() + " (pID: " + passenger.getpID() + ")" );
 		System.out.println("0: Go Back to Passenger Menu");
-		System.out.println("1: Get Ticket Information");
-		System.out.println("2: Get Purchase Information");
-		System.out.println("3: Get Black List Information");
+//		System.out.println("1: Get Ticket Information");
+//		System.out.println("2: Get Purchase Information");
+//		System.out.println("3: Get Black List Information");
 		
 		System.out.print("\nEnter integer: ");
 		String navIntAsString = this.sc.next();
@@ -102,24 +102,40 @@ public class PassengerView {
 	/**
 	 * Display a list of Passengers to be selected from
 	 * @param menuTitle	The title of this Passenger Table. Two Possibilities (SELECT PASSENGER) OR (DELETE PASSENGER)
+	 * @param displayRowNumber display (rowNumber): alongside the passenger info
 	 * @param hm a HashMap<Integer, Passenger> that contains all the Passengers to be displayed. Key = Row number, Value = Passenger Object with information about Passenger
-	 * @return The row of the Passenger to be selected for this table of Passengers
 	 * @throws SQLException
 	 */
-	public String displayListOfPassengers(String menuTitle, HashMap<Integer, Passenger> hm) throws SQLException {
+	public void displayListOfPassengers(String menuTitle, Boolean displayRowNumber, HashMap<Integer, Passenger> hm) throws SQLException {
 		System.out.println("\n" + menuTitle);
 
-
-		System.out.println("0: Go Back to Passenger Menu");
+		if(displayRowNumber) {
+			System.out.println("0: Go Back to Passenger Menu");
+		}
 		// Columns For Passenger List
-		System.out.printf("%6s %-24s %-24s %-6s \n", "pID", "First Name", "Last Name", "Age");
+		if(displayRowNumber) {
+			System.out.printf("%6s %-24s %-24s %-6s \n", "pID", "First Name", "Last Name", "Age");
+		} else {
+			System.out.printf("%3s %-24s %-24s %-6s \n", "pID", "First Name", "Last Name", "Age");
+		}
 
 		for(Map.Entry<Integer, Passenger> entry : hm.entrySet())
 		{
 			Passenger p = entry.getValue();
-			System.out.format("%d: %-3d %-24s %-24s %-6d\n" , entry.getKey(), p.getpID(), p.getFirstName(), p.getLastName(), p.getAge());
+			if(displayRowNumber) {
+				System.out.format("%d: %-3d %-24s %-24s %-6d\n" , entry.getKey(), p.getpID(), p.getFirstName(), p.getLastName(), p.getAge());
+			} else {
+				System.out.format("%-3d %-24s %-24s %-6d\n" , p.getpID(), p.getFirstName(), p.getLastName(), p.getAge());
+			}
 		}
 
+	}
+	
+	/**
+	 * Prompt for passenger table that will take in the row number of a specific passenger
+	 * @return the row of the specific Passenger selected
+	 */
+	public String displayPassengerPrompt() {
 		System.out.print("\nEnter integer: ");
 		String navIntAsString = this.sc.next();
 		return navIntAsString;

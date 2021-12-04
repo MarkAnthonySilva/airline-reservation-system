@@ -1,8 +1,11 @@
 package airlinereservationsystem.model;
 
+import java.util.HashMap;
+
 public class Airline {
 	private int aID;
 	private String name;
+	private HashMap<Integer, Passenger> blacklistOfPassenger; 
 	
 	public int getaID() {
 		return aID;
@@ -15,6 +18,12 @@ public class Airline {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public HashMap<Integer, Passenger> getBlacklistOfPassenger() {
+		return blacklistOfPassenger;
+	}
+	public void setBlacklistOfPassenger(HashMap<Integer, Passenger> blacklistOfPassenger) {
+		this.blacklistOfPassenger = blacklistOfPassenger;
 	}
 	
 	@Override

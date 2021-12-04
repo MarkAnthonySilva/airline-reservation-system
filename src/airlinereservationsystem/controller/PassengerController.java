@@ -118,8 +118,9 @@ public class PassengerController {
 		}
 
 		// Display all passengers with the firstName being searched for
-		String rowInputAsString = this.pv.displayListOfPassengers(menuTitle, passengerMap);
-
+		this.pv.displayListOfPassengers(menuTitle, true, passengerMap);
+		String rowInputAsString = this.pv.displayPassengerPrompt();
+		
 		// Check if rowInputAsString is a numeric then convert that into rowInput
 		int passengerRow = 0;	// Row of the Passenger in table
 		if(helper.isStringNumeric(rowInputAsString) == true){
@@ -178,17 +179,17 @@ public class PassengerController {
 			this.passengerMainMenu();
 			break;
 
-		case 1:
-			// Get Ticket information for Passenger
-			break;
-
-		case 2: 
-			// Get Purchase Information
-			break;
-
-		case 3: 
-			// Get if this passenger is blacklisted
-			break; 
+//		case 1:
+//			// Get Ticket information for Passenger
+//			break;
+//
+//		case 2: 
+//			// Get Purchase Information
+//			break;
+//
+//		case 3: 
+//			// Get if this passenger is blacklisted
+//			break; 
 		default:
 			System.out.println("Invalid Navigation Integer\n");
 			this.passengerPIDMenu(p);
