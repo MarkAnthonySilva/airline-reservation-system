@@ -20,6 +20,10 @@ public class BlacklistController {
 		this.bd = new BlacklistDao();
 	}
 	
+	/**
+	 * The main menu for the blacklist table
+	 * @throws SQLException
+	 */
 	public void blacklistMenu() throws SQLException {
 		String navIntAsString = this.bv.display();
 		
