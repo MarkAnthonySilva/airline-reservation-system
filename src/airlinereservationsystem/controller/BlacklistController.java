@@ -30,7 +30,7 @@ public class BlacklistController {
 		}
 
 		switch(navInt) {
-		case 0:{
+		case 0: {
 			// Navigate Back to Home Menu
 			this.hc.homeMenu();
 			break;
@@ -39,7 +39,11 @@ public class BlacklistController {
 		case 1: {
 			// Insert New Passenger to be blacklisted
 			Blacklist blacklist = new Blacklist();
-			
+			this.bv.diplayInsert(blacklist);
+			Boolean isInserted = this.bd.insertBlacklist(blacklist);
+			this.bv.displayInsertSucess(isInserted, blacklist);
+			this.blacklistMenu();
+			break;
 		}
 		
 		default: {
