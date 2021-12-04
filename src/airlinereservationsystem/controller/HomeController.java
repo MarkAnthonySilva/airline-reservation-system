@@ -45,6 +45,11 @@ public class HomeController {
 			ac.airlineMainMenu();
 			break;
 		}
+		case 5: {
+			BlacklistController bc = new BlacklistController(this);
+			bc.blacklistMenu();
+			break;
+		}
 		default: {
 			System.out.println("Invalid Navigation Integer");
 			this.homeMenu();
