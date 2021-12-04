@@ -1,6 +1,7 @@
 package airlinereservationsystem.controller;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import airlinereservationsystem.helper;
@@ -79,6 +80,18 @@ public class BlacklistController {
 			break;
 		}
 		
+		case 4: {
+			String timestampAsString = this.bv.displayPromptTimestamp();
+			Timestamp timestamp = helper.convertStringToTimestamp(timestampAsString);
+			Boolean isArchived = this.bd.archiveBlacklist(timestamp);
+			if(isArchived) {
+				System.out.println("Archive was successful");
+			} else {
+				System.out.println("Archive was NOT successful");
+			}
+			this.blacklistMenu();
+			break;
+		}
 		default: {
 			System.out.println("Invalid Navigation Integer\n");
 			this.blacklistMenu();

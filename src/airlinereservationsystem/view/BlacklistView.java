@@ -24,6 +24,7 @@ public class BlacklistView {
 		System.out.println("1: Insert Passenger to be Blacklisted");
 		System.out.println("2: Get Blacklist by aID");
 		System.out.println("3: Get Airline with Minimum number of Blacklisted Passenger");
+		System.out.println("4: Archive Blacklist");
 		
 		System.out.print("\nEnter integer: ");
 		String navIntAsString = this.sc.next();
@@ -116,6 +117,11 @@ public class BlacklistView {
 		return numPassAsString;
 	}
 	
+	/**
+	 * Display a table format of list of airlines and their number of blacklisted passengers
+	 * @param listOfAirlines the list of airlines with at least numPass of blacklisted passengers
+	 * @param numPass minimum number of passengers that are blacklisted
+	 */
 	public void displayListOfAirlines(ArrayList<Airline> listOfAirlines, int numPass) {
 		
 		if(listOfAirlines == null) {
@@ -127,5 +133,24 @@ public class BlacklistView {
 		for (Airline a : listOfAirlines) {
 			System.out.printf("%-32s %-3s %-3d\n", a.getName(), a.getaID(), a.getNumOfPassengerBlacklisted());
 		}
+	}
+	
+	/**
+	 * Display the prompt for a TimeStamp
+	 * @return
+	 */
+	public String displayPromptTimestamp() {
+		System.out.println("\nArchive Blacklist");
+
+		System.out.print("Cut off Timestamp (yyyy-mm-dd hh:mm:ss): ");
+		this.sc.nextLine();
+		String timeStampAsString = this.sc.nextLine();
+		while(timeStampAsString.equals("") || helper.convertStringToTimestamp(timeStampAsString) == null) {
+			System.out.println("\nTimestamp cannot be blank and must be form yyyy-mm-dd hh:mm:ss");
+			System.out.print("Cut off Timestamp (yyyy-mm-dd hh:mm:ss): ");
+			timeStampAsString = this.sc.nextLine();
+		}
+
+		return timeStampAsString;
 	}
 }

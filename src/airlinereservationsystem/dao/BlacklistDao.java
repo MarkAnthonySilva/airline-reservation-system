@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,6 +23,8 @@ public class BlacklistDao {
 	// Group by Having Query
 	private final String SELECT_BLACKLIST_NUM_PASS = "SELECT NAME, a.aid, COUNT(b.pid) AS numOfPassengerBlacklisted FROM blacklist b, airline a WHERE a.aid = b.aid GROUP BY b.aid HAVING COUNT(b.pid) >= ?";
 	
+	// Stored Procedure
+	private final String ARCHIVE_BLACKLIST = "CALL archivePassengerBlacklist(?)";
 	/**
 	 * Insert a blacklist row into the blacklist table
 	 * @param blacklist the blacklist row to be inserted
@@ -119,6 +122,22 @@ public class BlacklistDao {
 			}
 		} catch (SQLException e) {
 			return null;
+		}
+	}
+	
+	/**
+	 * Archive the blacklist if the creationDate is less than the cutOffTimestamp
+	 * @param cutOffTimestamp the timestamp that is the cut off for the archiving
+	 * @return
+	 */
+	public boolean archiveBlacklist(Timestamp cutOffTimestamp) {
+		try {
+			PreparedStatement ps = this.CONNECTION.prepareStatement(this.ARCHIVE_BLACKLIST);
+			ps.setTimestamp(1, cutOffTimestamp);
+			ps.executeUpdate();
+			return true;
+		} catch (SQLException e) { 
+			return false;
 		}
 	}
 }
