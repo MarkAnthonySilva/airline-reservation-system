@@ -39,37 +39,32 @@ public class TicketController {
 			this.hc.homeMenu();
 			break;
 		}
-
+		
 		case 1: {
-			// Insert New Passenger to be blacklisted
-			Blacklist blacklist = new Blacklist();
-			this.bv.diplayInsert(blacklist);
-			Boolean isInserted = this.bd.insertBlacklist(blacklist);
-			this.bv.displayInsertSucess(isInserted, blacklist);
-			this.blacklistMenu();
+			// Select by pID
 			break;
 		}
-
-		case 2: {
-			// Get Blacklist by aID
-			String aIDAsString = this.bv.displayAidPrompt();
-			int aID = Integer.parseInt(aIDAsString);
-			Airline a = this.bd.selectBlacklist(aID);
-			if(a == null) {
-				System.out.println("Airline does not have a blacklist");
-				this.blacklistMenu();
-			} else {
-				PassengerView pv = new PassengerView(this.hc.getSc());
-				pv.displayListOfPassengers("List of Blacklisted passenger for airline " + a.getName(), false, a.getBlacklistOfPassenger());
-				this.blacklistMenu();
-			}
-			break;
-		}
-
+		
+//		case 2: {
+//			// Select All Tickets
+//			break;
+//		}
+//		
+//		case 3: {
+//			// Delete Tickets by tid
+//			break;
+//		}
+//		
+//		case 4: {
+//			// Update Ticket
+//			break;
+//		}
+		
 		default: {
 			System.out.println("Invalid Navigation Integer\n");
-			this.blacklistMenu();
+			this.ticketMainMenu();
 			break;
 		}
 		}
 	}
+}
