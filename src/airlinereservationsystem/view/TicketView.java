@@ -21,9 +21,10 @@ public class TicketView {
 	public String display() {
 		System.out.println("\nTICKET MENU\nFunctions of Ticket");
 		System.out.println("0: Go to Home Menu");
-		System.out.println("1: Update Ticket");
-		System.out.println("2: Select All Tickets");
-		System.out.println("3: Delete Ticket by Ticket ID");
+		System.out.println("1: Select All Tickets");
+		System.out.println("2: Delete Ticket by Ticket ID");
+		System.out.println("3: Update Ticket");
+
 		
 		System.out.print("\nEnter an integer: ");
 		String navIntAsString = this.sc.next();
