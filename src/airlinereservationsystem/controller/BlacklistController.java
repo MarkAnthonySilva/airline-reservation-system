@@ -1,6 +1,7 @@
 package airlinereservationsystem.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import airlinereservationsystem.helper;
 import airlinereservationsystem.dao.BlacklistDao;
@@ -67,7 +68,17 @@ public class BlacklistController {
 			}
 			break;
 		}
-
+		
+		case 3: {
+			// Get All airlines with a certain number of blacklisted passengers
+			String numPassAsString = this.bv.displayPassNumPrompt();
+			int numPass = Integer.parseInt(numPassAsString);
+			ArrayList<Airline> listOfAirlines = this.bd.selectBlacklistNumber(numPass);
+			this.bv.displayListOfAirlines(listOfAirlines, numPass);
+			this.blacklistMenu();
+			break;
+		}
+		
 		default: {
 			System.out.println("Invalid Navigation Integer\n");
 			this.blacklistMenu();
