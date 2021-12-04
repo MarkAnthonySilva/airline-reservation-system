@@ -11,7 +11,6 @@ public class Ticket {
 	private Timestamp arrival;
 	private Timestamp update_at;
 	
-	
 	public int gettId() {
 		return tId;
 	}
