@@ -42,9 +42,9 @@ public class PassengerView {
 	public String displayPassenger(Passenger passenger) {
 		System.out.println("\n" + passenger.getFirstName() + " " + passenger.getLastName() + " (pID: " + passenger.getpID() + ")" );
 		System.out.println("0: Go Back to Passenger Menu");
-		System.out.println("1: Get Ticket Information");
-		System.out.println("2: Get Purchase Information");
-		System.out.println("3: Get Black List Information");
+//		System.out.println("1: Get Ticket Information");
+//		System.out.println("2: Get Purchase Information");
+//		System.out.println("3: Get Black List Information");
 		
 		System.out.print("\nEnter integer: ");
 		String navIntAsString = this.sc.next();

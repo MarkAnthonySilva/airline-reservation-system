@@ -179,17 +179,17 @@ public class PassengerController {
 			this.passengerMainMenu();
 			break;
 
-		case 1:
-			// Get Ticket information for Passenger
-			break;
-
-		case 2: 
-			// Get Purchase Information
-			break;
-
-		case 3: 
-			// Get if this passenger is blacklisted
-			break; 
+//		case 1:
+//			// Get Ticket information for Passenger
+//			break;
+//
+//		case 2: 
+//			// Get Purchase Information
+//			break;
+//
+//		case 3: 
+//			// Get if this passenger is blacklisted
+//			break; 
 		default:
 			System.out.println("Invalid Navigation Integer\n");
 			this.passengerPIDMenu(p);
