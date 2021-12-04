@@ -20,6 +20,7 @@ public class BlacklistView {
 		System.out.println("\nBLACKLIST MENU\nFunctions of Blacklist");
 		System.out.println("0: Go to Home Menu");
 		System.out.println("1: Insert Passenger to be Blacklisted");
+		System.out.println("2: Get Blacklist by aID");
 		
 		System.out.print("\nEnter integer: ");
 		String navIntAsString = this.sc.next();
@@ -73,5 +74,20 @@ public class BlacklistView {
 		} else {
 			System.out.println("The Passenger(pID: " + b.getpID() + ") was NOT successfully blacklisted from the airline(aID: " + b.getaID() + ")");
 		}
+	}
+	
+	public String displayAidPrompt() {
+		System.out.println("\nAirline Blacklist");
+
+		System.out.print("Airline aID: ");
+		this.sc.nextLine();
+		String aIDAsString = this.sc.nextLine();
+		while(aIDAsString.equals("") || !helper.isStringNumeric(aIDAsString)) {
+			System.out.println("\nAirline aID cannot be blank and must be an integer");
+			System.out.print("Airline aID: ");
+			aIDAsString = this.sc.nextLine();
+		}
+
+		return aIDAsString;
 	}
 }

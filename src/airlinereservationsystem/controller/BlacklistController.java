@@ -4,8 +4,10 @@ import java.sql.SQLException;
 
 import airlinereservationsystem.helper;
 import airlinereservationsystem.dao.BlacklistDao;
+import airlinereservationsystem.model.Airline;
 import airlinereservationsystem.model.Blacklist;
 import airlinereservationsystem.view.BlacklistView;
+import airlinereservationsystem.view.PassengerView;
 
 public class BlacklistController {
 	private HomeController hc;
@@ -45,7 +47,23 @@ public class BlacklistController {
 			this.blacklistMenu();
 			break;
 		}
-		
+
+		case 2: {
+			// Get Blacklist by aID
+			String aIDAsString = this.bv.displayAidPrompt();
+			int aID = Integer.parseInt(aIDAsString);
+			Airline a = this.bd.selectBlacklist(aID);
+			if(a == null) {
+				System.out.println("Airline does not have a blacklist");
+				this.blacklistMenu();
+			} else {
+				PassengerView pv = new PassengerView(this.hc.getSc());
+				pv.displayListOfPassengers("List of Blacklisted passenger for airline " + a.getName(), false, a.getBlacklistOfPassenger());
+				this.blacklistMenu();
+			}
+			break;
+		}
+
 		default: {
 			System.out.println("Invalid Navigation Integer\n");
 			this.blacklistMenu();

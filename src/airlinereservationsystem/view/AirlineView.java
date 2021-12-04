@@ -24,7 +24,6 @@ public class AirlineView {
 		System.out.println("1: Insert Airline");
 		System.out.println("2: Select All Airline");
 		System.out.println("3: Delete Airline by aID");
-		System.out.println("4: Get Blacklist by aID");
 		
 		System.out.print("\nEnter integer: ");
 		String navIntAsString = this.sc.next();
@@ -110,18 +109,5 @@ public class AirlineView {
 		}
 	}
 	
-	public String displayaIDPrompt() {
-		System.out.println("\nAirline Blacklist");
-
-		System.out.print("Airline aID: ");
-		this.sc.nextLine();
-		String aIDAsString = this.sc.nextLine();
-		while(aIDAsString.equals("") || !helper.isStringNumeric(aIDAsString)) {
-			System.out.println("\nAirline aID cannot be blank and must be an integer");
-			System.out.print("Airline aID: ");
-			aIDAsString = this.sc.nextLine();
-		}
-
-		return aIDAsString;
-	}
+	
 }

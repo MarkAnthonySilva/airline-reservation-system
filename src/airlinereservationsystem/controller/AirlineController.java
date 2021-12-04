@@ -7,7 +7,6 @@ import airlinereservationsystem.helper;
 import airlinereservationsystem.dao.AirlineDao;
 import airlinereservationsystem.model.Airline;
 import airlinereservationsystem.view.AirlineView;
-import airlinereservationsystem.view.PassengerView;
 
 public class AirlineController {
 	private HomeController hc;
@@ -72,22 +71,6 @@ public class AirlineController {
 			}
 			
 			this.airlineMainMenu();
-			break;
-		}
-		
-		case 4: {
-			// Get Blacklist by aID
-			String aIDAsString = this.av.displayaIDPrompt();
-			int aID = Integer.parseInt(aIDAsString);
-			Airline a = this.ad.selectBlacklist(aID);
-			if(a == null) {
-				System.out.println("Airline does not have a blacklist");
-				this.airlineMainMenu();
-			} else {
-				PassengerView pv = new PassengerView(this.hc.getSc());
-				pv.displayListOfPassengers("List of Blacklisted passenger for airline " + a.getName(), false, a.getBlacklistOfPassenger());
-				this.airlineMainMenu();
-			}
 			break;
 		}
 		
