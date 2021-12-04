@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import airlinereservationsystem.JdbcConnector;
@@ -17,6 +18,10 @@ public class BlacklistDao {
 
 	// Correlated Subquery
 	private final String SELECT_BLACKLIST_FROM_AID = "SELECT * FROM passenger p, airline a WHERE a.aID = ? AND (aID, pID) IN (SELECT aID, pID FROM blacklist b WHERE b.pID  = p.pID AND b.aID = a.aID) ";
+	
+	// Group by Having Query
+	private final String SELECT_BLACKLIST_NUM_PASS = "SELECT NAME, a.aid, COUNT(b.pid) AS numOfPassengerBlacklisted FROM blacklist b, airline a WHERE a.aid = b.aid GROUP BY b.aid HAVING COUNT(b.pid) >= ?";
+	
 	/**
 	 * Insert a blacklist row into the blacklist table
 	 * @param blacklist the blacklist row to be inserted
@@ -79,6 +84,39 @@ public class BlacklistDao {
 			}
 			
 			return a;
+		} catch (SQLException e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * Select the blacklist with more than a certain number of Blacklisted Passengers
+	 * @return
+	 */
+	public ArrayList<Airline> selectBlacklistNumber(int numOfBlacklisted) {
+		ArrayList<Airline> listOfAirlines = new ArrayList<Airline>();
+		try {
+			PreparedStatement ps = this.CONNECTION.prepareStatement(this.SELECT_BLACKLIST_NUM_PASS);
+			ps.setInt(1, numOfBlacklisted);
+			ResultSet rs = ps.executeQuery();
+
+			if(rs.next() == false ) {
+				return null;
+			} else {
+				do {
+					Airline a = new Airline();
+					String airlineName = rs.getString("name");
+					int numOfPassengerBlacklisted = rs.getInt("numOfPassengerBlacklisted");
+					int aID = rs.getInt("aID");
+					
+					a.setName(airlineName);
+					a.setNumOfPassengerBlacklisted(numOfPassengerBlacklisted);
+					a.setaID(aID);
+					
+					listOfAirlines.add(a);
+				} while(rs.next());
+				return listOfAirlines;
+			}
 		} catch (SQLException e) {
 			return null;
 		}

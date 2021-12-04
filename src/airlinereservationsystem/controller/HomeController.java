@@ -22,7 +22,7 @@ public class HomeController {
 		HomeMenu hm = new HomeMenu(this.sc);
 		String navIntAsString = hm.displayHome();
 
-		if(helper.isStringNumeric(navIntAsString) == true){
+		if(helper.isStringNumeric(navIntAsString) == true) {
 			this.navInt = Integer.parseInt(navIntAsString);
 		} else {
 			System.out.println("Input Must be an integer");

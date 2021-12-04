@@ -1,8 +1,10 @@
 package airlinereservationsystem.view;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import airlinereservationsystem.helper;
+import airlinereservationsystem.model.Airline;
 import airlinereservationsystem.model.Blacklist;
 
 public class BlacklistView {
@@ -21,6 +23,7 @@ public class BlacklistView {
 		System.out.println("0: Go to Home Menu");
 		System.out.println("1: Insert Passenger to be Blacklisted");
 		System.out.println("2: Get Blacklist by aID");
+		System.out.println("3: Get Airline with Minimum number of Blacklisted Passenger");
 		
 		System.out.print("\nEnter integer: ");
 		String navIntAsString = this.sc.next();
@@ -76,6 +79,10 @@ public class BlacklistView {
 		}
 	}
 	
+	/**
+	 * Display the prompt for the aID of an airline
+	 * @return the aID of the airline
+	 */
 	public String displayAidPrompt() {
 		System.out.println("\nAirline Blacklist");
 
@@ -89,5 +96,36 @@ public class BlacklistView {
 		}
 
 		return aIDAsString;
+	}
+	
+	/**
+	 * Display the prompt for number of blacklisted Passenger() 
+	 */
+	public String displayPassNumPrompt() {
+		System.out.println("\nAirline Blacklist Number of Passenger");
+		
+		System.out.print("Minimum number of Passengers: ");
+		this.sc.nextLine();
+		String numPassAsString = this.sc.nextLine();
+		while(numPassAsString.equals("") || !helper.isStringNumeric(numPassAsString)) {
+			System.out.println("\nMinimum number of Passengers cannot be blank and must be an integer");
+			System.out.print("Minimum number of Passengers: ");
+			numPassAsString = this.sc.nextLine();
+		}
+
+		return numPassAsString;
+	}
+	
+	public void displayListOfAirlines(ArrayList<Airline> listOfAirlines, int numPass) {
+		
+		if(listOfAirlines == null) {
+			System.out.println("There are no airlines with blacklisted passengers of size " + numPass);
+		}
+		System.out.println("\nList of Airlines with a Blacklist of size " + numPass + " or larger");
+		System.out.printf("%-32s %-3s %-34s\n", "Airline Name", "aID", "Number of Passengers Blacklisted");
+		
+		for (Airline a : listOfAirlines) {
+			System.out.printf("%-32s %-3s %-3d\n", a.getName(), a.getaID(), a.getNumOfPassengerBlacklisted());
+		}
 	}
 }

@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class Airline {
 	private int aID;
+	private int numOfPassengerBlacklisted;
 	private String name;
 	private HashMap<Integer, Passenger> blacklistOfPassenger; 
 	
@@ -25,7 +26,12 @@ public class Airline {
 	public void setBlacklistOfPassenger(HashMap<Integer, Passenger> blacklistOfPassenger) {
 		this.blacklistOfPassenger = blacklistOfPassenger;
 	}
-	
+	public int getNumOfPassengerBlacklisted() {
+		return numOfPassengerBlacklisted;
+	}
+	public void setNumOfPassengerBlacklisted(int numOfPassengerBlacklisted) {
+		this.numOfPassengerBlacklisted = numOfPassengerBlacklisted;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
