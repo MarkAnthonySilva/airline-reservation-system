@@ -109,8 +109,9 @@ public class PassengerView {
 	public void displayListOfPassengers(String menuTitle, Boolean displayRowNumber, HashMap<Integer, Passenger> hm) throws SQLException {
 		System.out.println("\n" + menuTitle);
 
-
-		System.out.println("0: Go Back to Passenger Menu");
+		if(displayRowNumber) {
+			System.out.println("0: Go Back to Passenger Menu");
+		}
 		// Columns For Passenger List
 		if(displayRowNumber) {
 			System.out.printf("%6s %-24s %-24s %-6s \n", "pID", "First Name", "Last Name", "Age");
