@@ -19,4 +19,4 @@ db.conn.url=jdbc:mysql://rangers-cs157a.ccxbf6i9cqfo.us-west-1.rds.amazonaws.com
 db.username=admin
 db.password=rangers-dbserver
 
-To run the project simply navigate to the AirlineSystem.java and run that file.
+To run the project simply navigate to the AirlineSystem.java and run that file. This file is located within the src folder.

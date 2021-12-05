@@ -18,6 +18,8 @@ public class TicketDao {
 //	private final String SELECT_TIK_PID = "SELECT * FROM ticket WHERE pID = ?";
 //	private final String DELETE_TIK_PID = "DELETE FROM ticket WHERE pID = ?";
 	private final String DELETE_TIK_TID_PID = "DELETE FROM ticket WHERE tID = ? AND pID = ?";
+	
+	// Aggregation
 	private final String AVG_PRICE_OF_TICKER_FOR_PASSENGER = "SELECT ps.pID, firstName, lastName, AVG(price) AS AvgTicketPrice, COUNT(tID) AS numberOfTickets "
 			+ "FROM passenger ps, purchase pr "
 			+ "WHERE ps.pID = ? AND pr.PID = ps.PID";
