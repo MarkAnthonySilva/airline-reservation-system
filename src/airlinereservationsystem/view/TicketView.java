@@ -231,6 +231,18 @@ public class TicketView {
 		t.settID(Integer.parseInt(tID));
 	}
 	
-	
+	public void displayTicket(Ticket t) {
+		System.out.printf("\n%-3s %-3s %-3s %-16s %-24s %-24s %-24s\n", "tID", "pID", "aID", "From Airport", "Destination Airport", "Departure", "Arrival");
+		
+		int tID = t.gettID();
+		int pId = t.getpID();
+		int aID = t.getaID();
+		String fromAir = t.getFromAirport();
+		String desAir = t.getDestinationAirport();
+		Timestamp arrival = t.getArrival();
+		Timestamp departure = t.getDeparture();
+		
+		System.out.printf("%-3d %-3d %-3d %-16s %-24s %-24s %-24s\n", tID, pId, aID, fromAir, desAir, arrival.toString(), departure.toString());
+	}
 
 }

@@ -80,11 +80,13 @@ public class TicketController {
 				System.out.println("Input Must be an Integer");
 				this.ticketMainMenu();
 			} else {
+				System.out.println(Arrays.toString(tIDpIDAsString));
 				tID = Integer.parseInt(tIDpIDAsString[0]);
 				pID = Integer.parseInt(tIDpIDAsString[1]);
 			}
 
 			Ticket t = this.td.selectTicketByTidPid(tID, pID);
+			this.tv.displayTicket(t);
 			this.ticketMainMenu();
 			break;
 		}
