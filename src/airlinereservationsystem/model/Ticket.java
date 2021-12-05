@@ -3,7 +3,7 @@ import java.sql.Timestamp;
 
 public class Ticket {
 	
-	private int tId;
+	private int tID;
 	private int pID;
 	private String fromAirport;
 	private String destinationAirport;
@@ -11,12 +11,12 @@ public class Ticket {
 	private Timestamp arrival;
 	private Timestamp update_at;
 	
-	public int gettId() {
-		return tId;
+	public int gettID() {
+		return tID;
 	}
 	
-	public void settId(int tId) {
-		this.tId = tId;
+	public void settID(int tId) {
+		this.tID = tId;
 	}
 	
 	public int getpID() {
@@ -76,7 +76,7 @@ public class Ticket {
 		result = prime * result + ((destinationAirport == null) ? 0 : destinationAirport.hashCode());
 		result = prime * result + ((fromAirport == null) ? 0 : fromAirport.hashCode());
 		result = prime * result + pID;
-		result = prime * result + tId;
+		result = prime * result + tID;
 		result = prime * result + ((update_at == null) ? 0 : update_at.hashCode());
 		return result;
 	}
@@ -112,7 +112,7 @@ public class Ticket {
 			return false;
 		if (pID != other.pID)
 			return false;
-		if (tId != other.tId)
+		if (tID != other.tID)
 			return false;
 		if (update_at == null) {
 			if (other.update_at != null)
@@ -124,7 +124,7 @@ public class Ticket {
 
 	@Override
 	public String toString() {
-		return "Ticket [tId=" + tId + ", pID=" + pID + ", fromAirport=" + fromAirport + ", destinationAirport="
+		return "Ticket [tId=" + tID + ", pID=" + pID + ", fromAirport=" + fromAirport + ", destinationAirport="
 				+ destinationAirport + ", departure=" + departure + ", arrival=" + arrival + ", update_at=" + update_at
 				+ "]";
 	}

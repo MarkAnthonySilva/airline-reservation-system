@@ -75,7 +75,7 @@ public class TicketView {
 		
 		
 		
-		t.settId(Integer.parseInt(tID));
+		t.settID(Integer.parseInt(tID));
 	}
 	
 	
