@@ -1,5 +1,8 @@
 package airlinereservationsystem.view;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -24,7 +27,8 @@ public class BlacklistView {
 		System.out.println("1: Insert Passenger to be Blacklisted");
 		System.out.println("2: Get Blacklist by aID");
 		System.out.println("3: Get Airline with Minimum number of Blacklisted Passenger");
-		System.out.println("4: Archive Blacklist");
+		System.out.println("4: Get All Blacklisted Passenger Info");
+		System.out.println("5: Archive Blacklist");
 		
 		System.out.print("\nEnter integer: ");
 		String navIntAsString = this.sc.next();
@@ -152,5 +156,30 @@ public class BlacklistView {
 		}
 
 		return timeStampAsString;
+	}
+	
+	/**
+	 * Display a table of blacklisted Passenger info
+	 * @param rs
+	 * @throws SQLException 
+	 */
+	public void displayListOfPassenger(ResultSet rs) throws SQLException {
+		System.out.println("\nLIST OF ALL BLACKLISTED PASSENGERS");
+		
+		System.out.printf("%-3s %-24s %-24s %-3s %-24s %-50s\n", "pID", "First Name", "Last Name", "aID", "Creation Date", "Reason");
+		if(rs.next() == false) {
+			System.out.println("NO BLACKLISTED PASSENGERS");
+		} else {
+			do {
+				int pID = rs.getInt("pID");
+				String firstName = rs.getString("firstName");
+				String lastName = rs.getString("lastName");
+				int aID = rs.getInt("aID");
+				Timestamp creationDate = rs.getTimestamp("creationDate");
+				String reason = rs.getString("reason");
+				
+				System.out.printf("%-3d %-24s %-24s %-3d %-24s %-50s\n", pID, firstName, lastName, aID, creationDate.toString(), reason);
+			} while (rs.next());
+		}
 	}
 }

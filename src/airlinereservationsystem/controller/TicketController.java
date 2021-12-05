@@ -40,7 +40,7 @@ public class TicketController {
 			this.hc.homeMenu();
 			break;
 		}
-
+		
 		case 1: {
 			// Insert New Ticket
 			Ticket ticket = new Ticket();
