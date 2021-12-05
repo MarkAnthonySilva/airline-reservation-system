@@ -22,7 +22,7 @@ public class TicketView {
 	public String display() {
 		System.out.println("\nTICKET MENU\nFunctions of Ticket");
 		System.out.println("0: Go to Home Menu");
-		System.out.println("1: Insert a Ticket");
+		System.out.println("1: Select all Tickets");
 		System.out.println("2: Delete Ticket by Ticket ID");
 		System.out.println("3: Update Ticket");
 		System.out.print("\nEnter an integer: ");
