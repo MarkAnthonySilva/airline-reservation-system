@@ -18,13 +18,21 @@ public class BlacklistDao {
 	private final String INSERT_AIRLINE = "INSERT INTO blacklist (aID, pID, reason) VALUES (?, ?, ?)";
 
 	// Correlated Subquery
-	private final String SELECT_BLACKLIST_FROM_AID = "SELECT * FROM passenger p, airline a WHERE a.aID = ? AND (aID, pID) IN (SELECT aID, pID FROM blacklist b WHERE b.pID  = p.pID AND b.aID = a.aID) ";
+	private final String SELECT_BLACKLIST_FROM_AID = "SELECT * FROM passenger p, airline a"
+			+ " WHERE a.aID = ? AND (aID, pID) IN (SELECT aID, pID FROM blacklist b WHERE b.pID  = p.pID AND b.aID = a.aID) ";
 	
 	// Group by Having Query
-	private final String SELECT_BLACKLIST_NUM_PASS = "SELECT NAME, a.aid, COUNT(b.pid) AS numOfPassengerBlacklisted FROM blacklist b, airline a WHERE a.aid = b.aid GROUP BY b.aid HAVING COUNT(b.pid) >= ?";
+	private final String SELECT_BLACKLIST_NUM_PASS = "SELECT NAME, a.aid, COUNT(b.pid) AS numOfPassengerBlacklisted "
+			+ "FROM blacklist b, airline a "
+			+ "WHERE a.aid = b.aid GROUP BY b.aid HAVING COUNT(b.pid) >= ?";
 	
 	// Stored Procedure
 	private final String ARCHIVE_BLACKLIST = "CALL archivePassengerBlacklist(?)";
+	
+	// Outer Join
+	private final String GET_ALL_BLACKLISTED_PASSENGER_INFO = "SELECT passenger.pID, firstName, lastName, aID, reason, creationDate "
+			+ "FROM  passenger LEFT OUTER JOIN blacklist ON passenger.pID = blacklist.pID "
+			+ "WHERE blacklist.pID IS NOT NULL";
 	/**
 	 * Insert a blacklist row into the blacklist table
 	 * @param blacklist the blacklist row to be inserted
@@ -138,6 +146,17 @@ public class BlacklistDao {
 			return true;
 		} catch (SQLException e) { 
 			return false;
+		}
+	}
+	
+	public ResultSet getAllBlacklistedPass() {
+		try {
+			PreparedStatement ps = this.CONNECTION.prepareStatement(this.GET_ALL_BLACKLISTED_PASSENGER_INFO);
+			ResultSet rs = ps.executeQuery();
+			System.out.println(rs.toString());
+			return rs;
+		} catch (SQLException e) { 
+			return null;
 		}
 	}
 }

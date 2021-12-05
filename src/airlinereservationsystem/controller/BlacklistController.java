@@ -1,5 +1,6 @@
 package airlinereservationsystem.controller;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -81,6 +82,15 @@ public class BlacklistController {
 		}
 		
 		case 4: {
+			// Get all blacklisted Passenger info
+			ResultSet rs = this.bd.getAllBlacklistedPass();
+			this.bv.displayListOfPassenger(rs);
+			this.blacklistMenu();
+			break;
+		}
+		
+		case 5: {
+			// Archive older blacklisted passengers
 			String timestampAsString = this.bv.displayPromptTimestamp();
 			Timestamp timestamp = helper.convertStringToTimestamp(timestampAsString);
 			Boolean isArchived = this.bd.archiveBlacklist(timestamp);

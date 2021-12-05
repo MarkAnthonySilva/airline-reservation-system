@@ -6,7 +6,6 @@ import java.sql.SQLException;
 
 import airlinereservationsystem.JdbcConnector;
 import airlinereservationsystem.model.Purchase;
-import airlinereservationsystem.model.Ticket;
 
 public class PurchaseDao {
 	private final Connection CONNECTION = JdbcConnector.createNewConnection();
