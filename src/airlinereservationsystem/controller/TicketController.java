@@ -6,6 +6,7 @@ import airlinereservationsystem.helper;
 import airlinereservationsystem.dao.TicketDao;
 import airlinereservationsystem.model.Airline;
 import airlinereservationsystem.model.Blacklist;
+import airlinereservationsystem.model.Passenger;
 import airlinereservationsystem.model.Ticket;
 import airlinereservationsystem.view.PassengerView;
 import airlinereservationsystem.view.TicketView;
@@ -44,26 +45,45 @@ public class TicketController {
 			// Insert New Ticket
 			Ticket ticket = new Ticket();
 			this.tv.diplayInsert(ticket);
-			Boolean isInserted = this.td.insertBlacklist(ticket);
-			this.tv.displayInsertSucess(isInserted, ticket);
+			this.td.insertTicket(ticket);
 			this.ticketMainMenu();
 			break;
 		}
 
 		case 2: {
-			// Get Blacklist by aID
-			String aIDAsString = this.bv.displayAidPrompt();
-			int aID = Integer.parseInt(aIDAsString);
-			Airline a = this.bd.selectBlacklist(aID);
-			if(a == null) {
-				System.out.println("Airline does not have a blacklist");
+			// Get Ticket by tID and pID
+			int tID = 0, pID = 0;
+			String[] tIDpIDAsString = this.tv.displayTicketSelect();
+			// If output was 0 go back to Ticket Main Menu or not a number
+			if(tIDpIDAsString[0].equals("0") || tIDpIDAsString[1].equals("0")) {
+				this.ticketMainMenu();
+			} else if (!helper.isStringNumeric(tIDpIDAsString[0]) || !helper.isStringNumeric(tIDpIDAsString[1])) {
+				System.out.println("Input Must be an Integer");
 				this.ticketMainMenu();
 			} else {
-				PassengerView pv = new PassengerView(this.hc.getSc());
-				pv.displayListOfPassengers("List of Blacklisted passenger for airline " + a.getName(), false, a.getBlacklistOfPassenger());
-				this.ticketMainMenu();
+				tID = Integer.parseInt(tIDpIDAsString[0]);
+				pID = Integer.parseInt(tIDpIDAsString[1]);
 			}
+
+			Ticket t = this.td.selectTicketByTidPid(tID, pID);
+			this.ticketMainMenu();
 			break;
+		}
+
+		case 3: {
+
+			// Delete Ticket Given a tID and pID
+			// Only Display Delete if there are actual Tickets to delete
+			if(this.ticketTable()) {
+				String[] tIDpIDAsString = this.tv.displayDelete();
+				int tID = Integer.parseInt(tIDpIDAsString[0]);
+				int pID = Integer.parseInt(tIDpIDAsString[1]);
+				this.td.deleteTicketByPidTid(tID, pID);
+			}
+
+			this.ticketMainMenu();
+			break;
+
 		}
 
 		default: {
@@ -71,6 +91,18 @@ public class TicketController {
 			this.ticketMainMenu();
 			break;
 		}
+		}
 	}
+	
+	public boolean ticketTable() throws SQLException {
+		HashMap<Integer, Ticket> ticketMap = this.td.selectAllTickets();
+		
+		if(ticketMap == null) {
+			System.out.println("No Tickets within the database");
+			return false;
+		}
+		
+		this.tv.displayListOfTickets(ticketMap);
+		return true;
 	}
 }

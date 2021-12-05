@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.HashMap;
+
 import airlinereservationsystem.JdbcConnector;
+import airlinereservationsystem.model.Airline;
 import airlinereservationsystem.model.Ticket;
 
 public class TicketDao {
@@ -12,6 +15,7 @@ public class TicketDao {
 	private final Connection CONNECTION = JdbcConnector.createNewConnection();
 	private final String INSERT_TICKET = "INSERT INTO ticket (pID, fromAirport, destinationAirport, departure, arrival) VALUES (?, ?, ?, ?, ?)";
 	private final String SELECT_TIK_TID_PID = "SELECT * FROM ticket WHERE tID = ? AND pID = ?";
+	private final String SELECT_ALL_TICKETS = "SELECT * FROM ticket";
 //	private final String SELECT_TIK_PID = "SELECT * FROM ticket WHERE pID = ?";
 //	private final String DELETE_TIK_PID = "DELETE FROM ticket WHERE pID = ?";
 	private final String DELETE_TIK_TID_PID = "DELETE FROM ticket WHERE tID = ? AND pID = ?";
@@ -80,7 +84,7 @@ public class TicketDao {
 	
 	/**
 	 * Deletes a specific Ticket with a given tID and pID
-	 * @param pID the Passenger to be deleted
+	 * @param tID and pID the Ticket to be deleted
 	 */
 	public void deleteTicketByPidTid(int tID, int pID) {
 		try {
@@ -90,8 +94,43 @@ public class TicketDao {
 			ps.executeUpdate();
 			System.out.println("Ticket (tID: " + tID + " + pID: " + pID + ") Sucessfully deleted");
 		} catch (Exception e) {
-			System.out.println("Ticket (tID: " + tID + " + pID: " + pID + ") Sucessfully deleted");
+			System.out.println("Ticket (tID: " + tID + " + pID: " + pID + ") Failed to delete");
 			e.printStackTrace();
 		}
+	}
+	
+	
+	/**
+	 * Gets all the airlines in the airline table and returns the data as Hashmap
+	 * @return HashMap of Airlines in the airline table
+	 */
+	public HashMap<Integer, Ticket> selectAllTickets(){
+		try {
+			PreparedStatement ps = this.CONNECTION.prepareStatement(this.SELECT_ALL_TICKETS);
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next() == false) {
+				return null;
+			} else {
+				int rowCount = 1;
+				HashMap<Integer, Ticket> resultSetHash = new HashMap<Integer, Ticket>();
+				do {
+					Ticket t = new Ticket();
+					int tID = rs.getInt("tID");
+					int pID = rs.getInt("pid");
+					
+					t.settID(tID);
+					t.setpID(pID);
+					
+					resultSetHash.put(rowCount, t);
+					rowCount++;
+				} while(rs.next());
+				
+				return resultSetHash;
+			}
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
