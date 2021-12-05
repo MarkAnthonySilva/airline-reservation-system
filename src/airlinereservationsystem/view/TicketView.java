@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.Scanner;
 import airlinereservationsystem.helper;
 import airlinereservationsystem.model.Ticket;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public class TicketView {
@@ -22,17 +25,48 @@ public class TicketView {
 	public String display() {
 		System.out.println("\nTICKET MENU\nFunctions of Ticket");
 		System.out.println("0: Go to Home Menu");
-		System.out.println("1: Select all Tickets");
+		System.out.println("1: Insert new Ticket");
 		System.out.println("2: Delete Ticket by Ticket ID");
-		System.out.println("3: Update Ticket");
+		System.out.println("3: Get Ticket by tID and pID");
+		System.out.println("4: Get Avg Ticket Price for a passenger (pID)");
 		System.out.print("\nEnter an integer: ");
 		String navIntAsString = this.sc.next();
 		return navIntAsString;
 	}
+
+	public String displayPromptPid() {
+		System.out.println("\nPassenger to get AVG PRICE of tickets");
+
+		System.out.print("pID of Passenger: ");
+		this.sc.nextLine();
+		String pIDAsString = this.sc.nextLine();
+		while(pIDAsString.equals("") || !helper.isStringNumeric(pIDAsString)) {
+			System.out.println("\nPassenger pID cannot be blank and must be an integer");
+			System.out.print("pID of Passenger: ");
+			pIDAsString = this.sc.nextLine();
+		}
+		return pIDAsString;
+	}
 	
+	public void displayAvg(ResultSet rs) throws SQLException {
+		System.out.println("\nAvg Price of Ticket for Specific Passenger");
+		if(rs.next() == false || rs.getString("firstName") == null) {
+			System.out.println("This Passenger has no tickets bought by them");
+		} else {
+			System.out.printf("%-3s %-24s %-24s %-20s %-24s\n", "pID", "First Name", "Last Name", "Num Of Tickets", "Avg Price");
+			int pID = rs.getInt("pID");
+			String firstName = rs.getString("firstName");
+			String lastName = rs.getString("lastName");
+			long avg = rs.getLong("AvgTicketPrice");
+			int numOfTickets = rs.getInt("numberOfTickets");
+
+			System.out.printf("%-3s %-24s %-24s %-20s %-24s\n", pID, firstName, lastName, numOfTickets, avg);
+		}
+	}
+
 	public void diplayInsert(Ticket t) {
 		System.out.println("\nTicket to be added");
-		
+
 		System.out.print("tID of Ticket: ");
 		this.sc.nextLine();
 		String tIDAsString = this.sc.nextLine();
@@ -48,6 +82,14 @@ public class TicketView {
 			System.out.println("\nTicket pID cannot be blank and must be an integer");
 			System.out.print("pID of Ticket: ");
 			pIDAsString = this.sc.nextLine();
+		}	
+		
+		System.out.print("\naID of Ticket: ");
+		String aIDAsString = this.sc.nextLine();
+		while(aIDAsString.equals("") || !helper.isStringNumeric(aIDAsString)) {
+			System.out.println("\nTicket aID cannot be blank and must be an integer");
+			System.out.print("\naID of Ticket: ");
+			aIDAsString = this.sc.nextLine();
 		}	
 		
 		System.out.print("Departure airport: ");
@@ -84,6 +126,7 @@ public class TicketView {
 		
 		t.settID(Integer.parseInt(tIDAsString));
 		t.setpID(Integer.parseInt(pIDAsString));
+		t.setaID(Integer.parseInt(aIDAsString));
 		t.setFromAirport(fromAirport);
 		t.setDestinationAirport(destinationAirport);
 		t.setDeparture(Timestamp.valueOf(departure));

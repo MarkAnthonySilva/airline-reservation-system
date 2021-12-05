@@ -1,5 +1,6 @@
 package airlinereservationsystem.controller;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -88,7 +89,14 @@ public class TicketController {
 			break;
 		}
 
-		
+		case 4: {
+			String pIDAsString = this.tv.displayPromptPid();
+			int pID = Integer.parseInt(pIDAsString);
+			ResultSet rs = this.td.getAvgPriceForPass(pID);
+			this.tv.displayAvg(rs);
+			this.ticketMainMenu();
+			break;
+		}
 		default: {
 			System.out.println("Invalid Navigation Integer\n");
 			this.ticketMainMenu();

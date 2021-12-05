@@ -20,6 +20,9 @@ public class TicketDao {
 //	private final String SELECT_TIK_PID = "SELECT * FROM ticket WHERE pID = ?";
 //	private final String DELETE_TIK_PID = "DELETE FROM ticket WHERE pID = ?";
 	private final String DELETE_TIK_TID_PID = "DELETE FROM ticket WHERE tID = ? AND pID = ?";
+	private final String AVG_PRICE_OF_TICKER_FOR_PASSENGER = "SELECT ps.pID, firstName, lastName, AVG(price) AS AvgTicketPrice, COUNT(tID) AS numberOfTickets "
+			+ "FROM passenger ps, purchase pr "
+			+ "WHERE ps.pID = ? AND pr.PID = ps.PID";
 	
 
 	/**
@@ -147,5 +150,16 @@ public class TicketDao {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public ResultSet getAvgPriceForPass(int pID) {
+		try {
+			PreparedStatement ps = this.CONNECTION.prepareStatement(this.AVG_PRICE_OF_TICKER_FOR_PASSENGER);
+			ps.setInt(1, pID);
+			ResultSet rs = ps.executeQuery();
+			return rs;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }
