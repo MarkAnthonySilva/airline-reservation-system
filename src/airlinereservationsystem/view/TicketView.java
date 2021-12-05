@@ -52,6 +52,7 @@ public class TicketView {
 		String userInput = this.sc.next();
 		return userInput;
 		
+		t.settID(Integer.parseInt(tID));
 	}
 	
 	
