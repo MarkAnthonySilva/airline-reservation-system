@@ -51,7 +51,7 @@ public class BlacklistView {
 		while(aIDAsString.equals("") || !helper.isStringNumeric(aIDAsString)) {
 			System.out.println("\nAirline aID cannot be blank and must be an integer");
 			System.out.print("aID of Airline: ");
-			pIDAsString = this.sc.nextLine();
+			aIDAsString = this.sc.nextLine();
 		}	
 		
 		System.out.print("Reason: ");

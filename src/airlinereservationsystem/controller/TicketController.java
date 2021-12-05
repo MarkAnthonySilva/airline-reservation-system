@@ -2,11 +2,11 @@ package airlinereservationsystem.controller;
 
 import java.sql.SQLException;
 import java.util.HashMap;
-
 import airlinereservationsystem.helper;
 import airlinereservationsystem.dao.TicketDao;
 import airlinereservationsystem.model.Airline;
 import airlinereservationsystem.model.Blacklist;
+import airlinereservationsystem.model.Ticket;
 import airlinereservationsystem.view.PassengerView;
 import airlinereservationsystem.view.TicketView;
 
@@ -41,12 +41,12 @@ public class TicketController {
 		}
 
 		case 1: {
-			// Insert New Passenger to be blacklisted
-			Blacklist blacklist = new Blacklist();
-			this.bv.diplayInsert(blacklist);
-			Boolean isInserted = this.bd.insertBlacklist(blacklist);
-			this.bv.displayInsertSucess(isInserted, blacklist);
-			this.blacklistMenu();
+			// Insert New Ticket
+			Ticket ticket = new Ticket();
+			this.tv.diplayInsert(ticket);
+			Boolean isInserted = this.td.insertBlacklist(ticket);
+			this.tv.displayInsertSucess(isInserted, ticket);
+			this.ticketMainMenu();
 			break;
 		}
 
@@ -57,19 +57,20 @@ public class TicketController {
 			Airline a = this.bd.selectBlacklist(aID);
 			if(a == null) {
 				System.out.println("Airline does not have a blacklist");
-				this.blacklistMenu();
+				this.ticketMainMenu();
 			} else {
 				PassengerView pv = new PassengerView(this.hc.getSc());
 				pv.displayListOfPassengers("List of Blacklisted passenger for airline " + a.getName(), false, a.getBlacklistOfPassenger());
-				this.blacklistMenu();
+				this.ticketMainMenu();
 			}
 			break;
 		}
 
 		default: {
 			System.out.println("Invalid Navigation Integer\n");
-			this.blacklistMenu();
+			this.ticketMainMenu();
 			break;
 		}
-		}
 	}
+	}
+}
