@@ -153,7 +153,6 @@ public class BlacklistDao {
 		try {
 			PreparedStatement ps = this.CONNECTION.prepareStatement(this.GET_ALL_BLACKLISTED_PASSENGER_INFO);
 			ResultSet rs = ps.executeQuery();
-			System.out.println(rs.toString());
 			return rs;
 		} catch (SQLException e) { 
 			return null;
