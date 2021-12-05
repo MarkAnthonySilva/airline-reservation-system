@@ -32,8 +32,11 @@ public class TicketView {
 		return navIntAsString;
 	}
 	
+//	public String displayPromptPid() {
+//		System.out.println("Display")
+//	}
 	/**
-	 * Display the prompt for a new Ticket Insertion
+	 * Display the prompt for a new Ticket Update
 	 * @param a the ticket information to be saved into the database
 	 */
 	public String displayUpdate(Ticket t) {
