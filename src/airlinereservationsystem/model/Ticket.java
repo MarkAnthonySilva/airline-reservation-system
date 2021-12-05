@@ -65,6 +65,7 @@ public class Ticket {
 	public void setUpdate_at(Timestamp update_at) {
 		this.update_at = update_at;
 	}
+	
 	public int getaID() {
 		return aID;
 	}
