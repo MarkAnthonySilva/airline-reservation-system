@@ -1,12 +1,14 @@
 package airlinereservationsystem.controller;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashMap;
-
 import airlinereservationsystem.helper;
 import airlinereservationsystem.dao.TicketDao;
 import airlinereservationsystem.model.Airline;
 import airlinereservationsystem.model.Blacklist;
+import airlinereservationsystem.model.Passenger;
+import airlinereservationsystem.model.Ticket;
 import airlinereservationsystem.view.PassengerView;
 import airlinereservationsystem.view.TicketView;
 
@@ -41,24 +43,51 @@ public class TicketController {
 		}
 		
 		case 1: {
-			// Select by pID
+			// Insert New Ticket
+			Ticket ticket = new Ticket();
+			this.tv.diplayInsert(ticket);
+			this.td.insertTicket(ticket);
+			this.ticketMainMenu();
 			break;
 		}
 		
-//		case 2: {
-//			// Select All Tickets
-//			break;
-//		}
-//		
-//		case 3: {
-//			// Delete Tickets by tid
-//			break;
-//		}
-//		
-//		case 4: {
-//			// Update Ticket
-//			break;
-//		}
+		case 2: {
+
+			// Delete Ticket Given a tID and pID
+			// Only Display Delete if there are actual Tickets to delete
+			if(this.ticketTable()) {
+				String[] tIDpIDAsString = this.tv.displayDelete();
+				System.out.println(Arrays.toString(tIDpIDAsString));
+				int tID = Integer.parseInt(tIDpIDAsString[0]);
+				int pID = Integer.parseInt(tIDpIDAsString[1]);
+				this.td.deleteTicketByPidTid(tID, pID);
+			}
+
+			this.ticketMainMenu();
+			break;
+
+		}
+
+		case 3: {
+			// Get Ticket by tID and pID
+			int tID = 0, pID = 0;
+			String[] tIDpIDAsString = this.tv.displayTicketSelect();
+			// If output was 0 go back to Ticket Main Menu or not a number
+			if(tIDpIDAsString[0].equals("0") || tIDpIDAsString[1].equals("0")) {
+				this.ticketMainMenu();
+			} else if (!helper.isStringNumeric(tIDpIDAsString[0]) || !helper.isStringNumeric(tIDpIDAsString[1])) {
+				System.out.println("Input Must be an Integer");
+				this.ticketMainMenu();
+			} else {
+				tID = Integer.parseInt(tIDpIDAsString[0]);
+				pID = Integer.parseInt(tIDpIDAsString[1]);
+			}
+
+			Ticket t = this.td.selectTicketByTidPid(tID, pID);
+			this.ticketMainMenu();
+			break;
+		}
+
 		
 		default: {
 			System.out.println("Invalid Navigation Integer\n");
@@ -66,5 +95,15 @@ public class TicketController {
 			break;
 		}
 		}
+	}
+	
+	public boolean ticketTable() throws SQLException {
+		HashMap<Integer, Ticket> ticketMap = this.td.selectAllTickets();	
+		if(ticketMap == null) {
+			System.out.println("No Tickets within the database");
+			return false;
+		}
+		this.tv.displayListOfTickets(ticketMap);
+		return true;
 	}
 }
