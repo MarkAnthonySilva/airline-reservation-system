@@ -21,7 +21,7 @@ public class HomeController {
 	public void homeMenu() throws SQLException {
 		HomeMenu hm = new HomeMenu(this.sc);
 		String navIntAsString = hm.displayHome();
-
+//		System.out.println("PRINT NAV: " + navIntAsString);
 		if(helper.isStringNumeric(navIntAsString) == true) {
 			this.navInt = Integer.parseInt(navIntAsString);
 		} else {

@@ -23,7 +23,7 @@ public class HomeMenu {
 		System.out.println("5: Blacklist");
 		System.out.println("6: Airport");
 		System.out.print("\nEnter integer: ");
-		String navIntAsString = sc.next();
+		String navIntAsString = this.sc.next();
 		return navIntAsString;
 	}
 }
