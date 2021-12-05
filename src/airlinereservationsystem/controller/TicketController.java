@@ -1,6 +1,7 @@
 package airlinereservationsystem.controller;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashMap;
 import airlinereservationsystem.helper;
 import airlinereservationsystem.dao.TicketDao;
@@ -49,8 +50,25 @@ public class TicketController {
 			this.ticketMainMenu();
 			break;
 		}
-
+		
 		case 2: {
+
+			// Delete Ticket Given a tID and pID
+			// Only Display Delete if there are actual Tickets to delete
+			if(this.ticketTable()) {
+				String[] tIDpIDAsString = this.tv.displayDelete();
+				System.out.println(Arrays.toString(tIDpIDAsString));
+				int tID = Integer.parseInt(tIDpIDAsString[0]);
+				int pID = Integer.parseInt(tIDpIDAsString[1]);
+				this.td.deleteTicketByPidTid(tID, pID);
+			}
+
+			this.ticketMainMenu();
+			break;
+
+		}
+
+		case 3: {
 			// Get Ticket by tID and pID
 			int tID = 0, pID = 0;
 			String[] tIDpIDAsString = this.tv.displayTicketSelect();
@@ -70,22 +88,7 @@ public class TicketController {
 			break;
 		}
 
-		case 3: {
-
-			// Delete Ticket Given a tID and pID
-			// Only Display Delete if there are actual Tickets to delete
-			if(this.ticketTable()) {
-				String[] tIDpIDAsString = this.tv.displayDelete();
-				int tID = Integer.parseInt(tIDpIDAsString[0]);
-				int pID = Integer.parseInt(tIDpIDAsString[1]);
-				this.td.deleteTicketByPidTid(tID, pID);
-			}
-
-			this.ticketMainMenu();
-			break;
-
-		}
-
+		
 		default: {
 			System.out.println("Invalid Navigation Integer\n");
 			this.ticketMainMenu();

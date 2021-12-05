@@ -22,10 +22,9 @@ public class TicketView {
 	public String display() {
 		System.out.println("\nTICKET MENU\nFunctions of Ticket");
 		System.out.println("0: Go to Home Menu");
-		System.out.println("1: Select All Tickets");
+		System.out.println("1: Insert a Ticket");
 		System.out.println("2: Delete Ticket by Ticket ID");
 		System.out.println("3: Update Ticket");
-
 		System.out.print("\nEnter an integer: ");
 		String navIntAsString = this.sc.next();
 		return navIntAsString;
@@ -98,11 +97,11 @@ public class TicketView {
 	 */
 	public String[] displayTicketSelect() {
 		System.out.println("0: Go Back to Ticket Menu");
-		System.out.print("Select Passenger Ticket tID: ");
+		System.out.print("Select Ticket tID: ");
 		
 		String[] tIDpID = new String[2];
 		tIDpID[0] = this.sc.next();
-		System.out.print("Select Passenger Ticket pID: ");
+		System.out.print("Select Ticket pID: ");
 		tIDpID[1] = this.sc.next();
 		
 		return tIDpID;
@@ -113,17 +112,16 @@ public class TicketView {
 		String[] tIDpID = new String[2];
 		System.out.print("Ticket tID: ");
 		this.sc.nextLine();
-		String tIDAsString = this.sc.nextLine();
-		while(tIDAsString.equals("") || !helper.isStringNumeric(tIDAsString)) {
+		tIDpID[0] = this.sc.nextLine();
+		while(tIDpID[0].equals("") || !helper.isStringNumeric(tIDpID[0])) {
 			System.out.println("\nTicket tID cannot be blank and must be an integer");
 			System.out.print("Ticket tID: ");
 			tIDpID[0] = this.sc.nextLine();
 		}
 		
 		System.out.print("Ticket pID: ");
-		this.sc.nextLine();
-		String pIDAsString = this.sc.nextLine();
-		while(pIDAsString.equals("") || !helper.isStringNumeric(pIDAsString)) {
+		tIDpID[1] = this.sc.nextLine();
+		while(tIDpID[1].equals("") || !helper.isStringNumeric(tIDpID[1])) {
 			System.out.println("\nTicket pID cannot be blank and must be an integer");
 			System.out.print("Ticket pID: ");
 			tIDpID[1] = this.sc.nextLine();
