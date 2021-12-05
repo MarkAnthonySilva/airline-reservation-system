@@ -22,9 +22,9 @@ public class TicketView {
 	public String display() {
 		System.out.println("\nTICKET MENU\nFunctions of Ticket");
 		System.out.println("0: Go to Home Menu");
-		System.out.println("1: Select all Tickets");
+		System.out.println("1: Insert new Ticket");
 		System.out.println("2: Delete Ticket by Ticket ID");
-		System.out.println("3: Update Ticket");
+		System.out.println("3: Get Ticket by tID and pID");
 		System.out.print("\nEnter an integer: ");
 		String navIntAsString = this.sc.next();
 		return navIntAsString;
@@ -48,6 +48,14 @@ public class TicketView {
 			System.out.println("\nTicket pID cannot be blank and must be an integer");
 			System.out.print("pID of Ticket: ");
 			pIDAsString = this.sc.nextLine();
+		}	
+		
+		System.out.print("\naID of Ticket: ");
+		String aIDAsString = this.sc.nextLine();
+		while(aIDAsString.equals("") || !helper.isStringNumeric(aIDAsString)) {
+			System.out.println("\nTicket aID cannot be blank and must be an integer");
+			System.out.print("\naID of Ticket: ");
+			aIDAsString = this.sc.nextLine();
 		}	
 		
 		System.out.print("Departure airport: ");
@@ -84,6 +92,7 @@ public class TicketView {
 		
 		t.settID(Integer.parseInt(tIDAsString));
 		t.setpID(Integer.parseInt(pIDAsString));
+		t.setaID(Integer.parseInt(aIDAsString));
 		t.setFromAirport(fromAirport);
 		t.setDestinationAirport(destinationAirport);
 		t.setDeparture(Timestamp.valueOf(departure));
