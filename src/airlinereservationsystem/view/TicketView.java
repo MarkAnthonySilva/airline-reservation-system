@@ -179,7 +179,6 @@ public class TicketView {
 			//break;
 		}
 		
-		
 		System.out.print("Ticket ID: ");
 		this.sc.nextLine();
 		String tID = this.sc.nextLine();
@@ -188,10 +187,6 @@ public class TicketView {
 			System.out.print("Ticket ID: ");
 			tID = this.sc.next();
 		}
-	
-		
-		
-		
 		t.settID(Integer.parseInt(tID));
 	}
 	

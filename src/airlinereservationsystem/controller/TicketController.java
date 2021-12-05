@@ -95,13 +95,11 @@ public class TicketController {
 	}
 	
 	public boolean ticketTable() throws SQLException {
-		HashMap<Integer, Ticket> ticketMap = this.td.selectAllTickets();
-		
+		HashMap<Integer, Ticket> ticketMap = this.td.selectAllTickets();	
 		if(ticketMap == null) {
 			System.out.println("No Tickets within the database");
 			return false;
 		}
-		
 		this.tv.displayListOfTickets(ticketMap);
 		return true;
 	}
