@@ -21,10 +21,9 @@ public class TicketView {
 	public String display() {
 		System.out.println("\nTICKET MENU\nFunctions of Ticket");
 		System.out.println("0: Go to Home Menu");
-		System.out.println("1: Select by pID (TODO)");
-//		System.out.println("2: Select All Tickets (TODO)");
-//		System.out.println("3: Delete Ticket by Ticket ID (TODO)");
-//		System.out.println("4: Update Ticket (TODO)");
+		System.out.println("1: Select All Tickets");
+		System.out.println("2: Delete Ticket by Ticket ID");
+		System.out.println("3: Update Ticket");
 
 		
 		System.out.print("\nEnter an integer: ");
@@ -32,14 +31,11 @@ public class TicketView {
 		return navIntAsString;
 	}
 	
-//	public String displayPromptPid() {
-//		System.out.println("Display")
-//	}
 	/**
-	 * Display the prompt for a new Ticket Update
+	 * Display the prompt for a new Ticket Insertion
 	 * @param a the ticket information to be saved into the database
 	 */
-	public String displayUpdate(Ticket t) {
+	public void displayUpdate(Ticket t) {
 		System.out.println("\nTicket Information to be updated");
 		
 		System.out.println("\nWhat would you like to be updated?");
@@ -48,9 +44,36 @@ public class TicketView {
 		System.out.println("3: Update departure time");
 		System.out.println("4: Update arrival time");
 		
-		System.out.print("\nEnter an integer: ");
-		String userInput = this.sc.next();
-		return userInput;
+		String userInput = this.sc.nextLine();
+		
+		int input = Integer.parseInt(userInput);
+		
+		if (input == 1) {
+			
+		} else if (input == 2) {
+			
+		} else if (input == 3) {
+			
+		} else if (input == 4) {
+			
+			
+		} else {
+			System.out.println("Not a valid option");
+			//break;
+		}
+		
+		
+		System.out.print("Ticket ID: ");
+		this.sc.nextLine();
+		String tID = this.sc.nextLine();
+		while(tID.equals("")) {
+			System.out.println("\nTicket ID cannot be blank");
+			System.out.print("Ticket ID: ");
+			tID = this.sc.next();
+		}
+	
+		
+		
 		
 		t.settID(Integer.parseInt(tID));
 	}
