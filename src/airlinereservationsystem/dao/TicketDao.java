@@ -10,8 +10,9 @@ import airlinereservationsystem.model.Ticket;
 public class TicketDao {
 	
 	private final Connection CONNECTION = JdbcConnector.createNewConnection();
-	private final String INSERT_TICKET = "INSERT INTO ticket (pID, fromAirport, destinationAirport, departure, arrival) VALUES (?, ?, ?, ?, ?)";
+	private final String INSERT_TICKET = "INSERT INTO ticket (pID, aID, fromAirport, destinationAirport, departure, arrival) VALUES (?, ?, ?, ?, ?, ?)";
 	private final String SELECT_TIK_TID_PID = "SELECT * FROM ticket WHERE tID = ? AND pID = ?";
+	private final String SELECT_TID = "SELECT tID FROM ticket WHERE pID = ? AND pID = ? AND fromAirport = ? AND destinationAirport = ? AND departure = ? AND arrival = ?";
 //	private final String SELECT_TIK_PID = "SELECT * FROM ticket WHERE pID = ?";
 //	private final String DELETE_TIK_PID = "DELETE FROM ticket WHERE pID = ?";
 	private final String DELETE_TIK_TID_PID = "DELETE FROM ticket WHERE tID = ? AND pID = ?";
@@ -22,20 +23,34 @@ public class TicketDao {
 	 * @param ticket the Ticket row to be inserted
 	 * @return true if insertion was successfully completed, otherwise false
 	 */
-	public void insertTicket(Ticket ticket) {
+	public Boolean insertTicket(Ticket ticket) {
 		try {
 			PreparedStatement ps = this.CONNECTION.prepareStatement(this.INSERT_TICKET);
 			//ps.setInt(1, ticket.gettId()); 
 			ps.setInt(1, ticket.getpID());
-			ps.setString(2, ticket.getFromAirport());
-			ps.setString(3, ticket.getDestinationAirport());
-			ps.setTimestamp(4, ticket.getDeparture());
-			ps.setTimestamp(5, ticket.getArrival());
+			ps.setInt(2, ticket.getaID());
+			ps.setString(3, ticket.getFromAirport());
+			ps.setString(4, ticket.getDestinationAirport());
+			ps.setTimestamp(5, ticket.getDeparture());
+			ps.setTimestamp(6, ticket.getArrival());
 			ps.executeUpdate();
 			
+			// Get Ticket tID and store it into ticket
+			ps = this.CONNECTION.prepareStatement(this.SELECT_TID);
+			ps.setInt(1, ticket.getpID());
+			ps.setInt(2, ticket.getaID());
+			ps.setString(3, ticket.getFromAirport());
+			ps.setString(4, ticket.getDestinationAirport());
+			ps.setTimestamp(5, ticket.getDeparture());
+			ps.setTimestamp(6, ticket.getArrival());
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			
+			ticket.settID(rs.getInt("tID"));
+			return true;
 		} catch (Exception e) {
-			System.out.println("Ticket Could not be found.");
-			e.printStackTrace();
+			System.out.println(e.getMessage());
+			return false;
 		}
 	}
 	

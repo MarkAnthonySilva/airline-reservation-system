@@ -5,6 +5,7 @@ public class Ticket {
 	
 	private int tID;
 	private int pID;
+	private int aID;
 	private String fromAirport;
 	private String destinationAirport;
 	private Timestamp departure;
@@ -34,15 +35,13 @@ public class Ticket {
 	public void setFromAirport(String fromAirport) {
 		this.fromAirport = fromAirport;
 	}
-	
 	public String getDestinationAirport() {
 		return destinationAirport;
 	}
-	
+
 	public void setDestinationAirport(String destinationAirport) {
 		this.destinationAirport = destinationAirport;
 	}
-	
 	public Timestamp getDeparture() {
 		return departure;
 	}
@@ -65,6 +64,13 @@ public class Ticket {
 	
 	public void setUpdate_at(Timestamp update_at) {
 		this.update_at = update_at;
+	}
+	public int getaID() {
+		return aID;
+	}
+
+	public void setaID(int aID) {
+		this.aID = aID;
 	}
 
 	@Override
@@ -124,8 +130,8 @@ public class Ticket {
 
 	@Override
 	public String toString() {
-		return "Ticket [tId=" + tID + ", pID=" + pID + ", fromAirport=" + fromAirport + ", destinationAirport="
-				+ destinationAirport + ", departure=" + departure + ", arrival=" + arrival + ", update_at=" + update_at
-				+ "]";
+		return "Ticket [tID=" + tID + ", pID=" + pID + ", aID=" + aID + ", fromAirport=" + fromAirport
+				+ ", destinationAirport=" + destinationAirport + ", departure=" + departure + ", arrival=" + arrival
+				+ ", update_at=" + update_at + "]";
 	}
 }

@@ -45,6 +45,11 @@ public class HomeController {
 			tc.ticketMainMenu();
 			break;
 		}
+		case 3: {
+			PurchaseController pc = new PurchaseController(this);
+			pc.purchaseMainMenu();
+			break;
+		}
 		case 4: {
 			AirlineController ac = new AirlineController(this);
 			ac.airlineMainMenu();

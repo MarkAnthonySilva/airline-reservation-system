@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import airlinereservationsystem.helper;
 import airlinereservationsystem.dao.PurchaseDao;
+import airlinereservationsystem.dao.TicketDao;
 import airlinereservationsystem.model.Purchase;
 import airlinereservationsystem.model.Ticket;
 import airlinereservationsystem.view.PurchaseView;
@@ -41,6 +42,24 @@ public class PurchaseController {
 			// New Ticket Purchase to be inserted
 			Ticket t = new Ticket();
 			Purchase p = new Purchase();
+			
+			this.pv.displayInsertTicket(t);
+			TicketDao td = new TicketDao();
+			Boolean isTicketInserted = td.insertTicket(t);
+			if(isTicketInserted) {
+				System.out.println("Success on Inserting Ticket: " + t.toString());
+				
+				this.pv.displayInsertPurchase(p);
+				p.settID(t.gettID());
+				String message = this.pd.insertPurchase(p);
+				System.out.println(message);
+			} else {
+				System.out.println("Failure on Inserting Ticket: " + t.toString());
+			}
+			
+			
+			this.purchaseMainMenu();
+			break;
 		}
 
 		default: {
